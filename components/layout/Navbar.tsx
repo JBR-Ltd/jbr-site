@@ -43,13 +43,15 @@ export default function Navbar() {
         }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem", height: 76, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
+          {/* Logo Link - Added onClick to close mobile menu */}
+          <Link href="/" onClick={() => setMenuOpen(false)} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
             <Image src="/logo.png" alt="JBR Limited" width={36} height={36} style={{ objectFit: "contain" }} priority />
             <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: "1.05rem", letterSpacing: "0.15em", color: "#EDE6D6", fontWeight: 600 }}>
               JBR<span style={{ color: "#C9853E", marginLeft: 4, fontWeight: 400 }}>LIMITED</span>
             </span>
           </Link>
 
+          {/* Desktop Nav */}
           <nav style={{ display: "flex", alignItems: "center", gap: 36 }} className="hidden-mobile">
             {links.map((l) => (
               <Link key={l.href} href={l.href} style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600, color: "rgba(237,230,214,0.78)", textDecoration: "none", transition: "color 0.3s" }}
@@ -65,7 +67,8 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: "none", border: "none", cursor: "none", display: "flex", flexDirection: "column", gap: 6, padding: 8 }} className="show-mobile">
+          {/* Mobile Menu Toggle */}
+          <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", flexDirection: "column", gap: 6, padding: 8 }} className="show-mobile">
             {[0,1,2].map(i => (
               <motion.span key={i} animate={menuOpen ? (i===0?{rotate:45,y:8}:i===1?{opacity:0}:{rotate:-45,y:-8}) : {rotate:0,y:0,opacity:1}}
                 style={{ display: "block", width: 24, height: 1, background: "#EDE6D6", transformOrigin: "center" }} />
@@ -83,21 +86,60 @@ export default function Navbar() {
         }
       `}</style>
 
+      {/* Mobile Dropdown */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }} animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }} exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            style={{ position: "fixed", inset: 0, zIndex: 40, background: "#2A1C10", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 40 }}>
+          <motion.div 
+            initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }} 
+            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }} 
+            exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            style={{ 
+              position: "fixed", inset: 0, zIndex: 40, 
+              background: "rgba(10, 8, 7, 0.98)", // Darker, slightly transparent base
+              backdropFilter: "blur(24px)", // Glass effect
+              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 32 
+            }}
+          >
             {links.map((l, i) => (
-              <motion.div key={l.href} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
+              <motion.div key={l.href} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
                 <Link href={l.href} onClick={() => setMenuOpen(false)}
-                  style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: "2.4rem", fontWeight: 600, color: "#EDE6D6", textDecoration: "none", transition: "color 0.3s" }}
+                  style={{ 
+                    fontFamily: '"Space Grotesk", sans-serif', 
+                    fontSize: "1.5rem", // Reduced size
+                    letterSpacing: "0.15em", 
+                    textTransform: "uppercase", 
+                    fontWeight: 500, 
+                    color: "#EDE6D6", 
+                    textDecoration: "none", 
+                    transition: "color 0.3s" 
+                  }}
                   onMouseEnter={e => (e.currentTarget.style.color = "#C9853E")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "#EDE6D6")}>
+                  onMouseLeave={e => (e.currentTarget.style.color = "#EDE6D6")}
+                >
                   {l.label}
                 </Link>
               </motion.div>
             ))}
+            
+            {/* Added CTA button to mobile menu */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ delay: 0.1 + links.length * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }} 
+              style={{ marginTop: 16 }}
+            >
+              <Link href="/contact" onClick={() => setMenuOpen(false)} 
+                style={{ 
+                  fontFamily: '"Space Grotesk", sans-serif', fontSize: "0.9rem", letterSpacing: "0.18em", 
+                  textTransform: "uppercase", fontWeight: 600, padding: "14px 32px", 
+                  border: "1px solid #C9853E", color: "#0A0807", background: "#C9853E", 
+                  textDecoration: "none", transition: "all 0.3s" 
+                }}
+              >
+                Get in Touch
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
