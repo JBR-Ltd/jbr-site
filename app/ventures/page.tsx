@@ -73,7 +73,7 @@ export default function VenturesPage() {
                 The Real Estate Platform
               </TextReveal>
               <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:28 }}>
-                {["Real Estate","PropTech","Nigeria","2025"].map(t => (
+                {["Real Estate","PropTech","Nigeria","2026"].map(t => (
                   <span key={t} style={{ fontFamily:"Inter,sans-serif", fontSize:"0.62rem", letterSpacing:"0.25em", textTransform:"uppercase", padding:"5px 12px", border:"1px solid rgba(201,133,62,0.5)", color:"rgba(237,230,214,0.5)" }}>{t}</span>
                 ))}
               </div>
