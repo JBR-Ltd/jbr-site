@@ -39,7 +39,7 @@ export default function VentureSpotlight() {
             </div>
             {/* Badge */}
             <div style={{ position: "absolute", bottom: 24, left: 24, padding: "10px 18px", background: "rgba(10,8,7,0.7)", backdropFilter: "blur(10px)", border: "1px solid rgba(201,133,62,0.4)" }}>
-              <span style={{ fontFamily: "Inter, sans-serif", fontSize: "0.65rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#EDE6D6" }}>Live 2025</span>
+              <span style={{ fontFamily: "Inter, sans-serif", fontSize: "0.65rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#EDE6D6" }}>Live 2026</span>
             </div>
           </div>
 
