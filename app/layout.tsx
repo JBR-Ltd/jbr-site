@@ -7,11 +7,16 @@ import LenisProvider from "@/components/layout/LenisProvider";
 import GlobalScene from "@/components/three/GlobalScene";
 import Loader from "@/components/ui/Loader";
 
+
 export const metadata: Metadata = {
   title: "JBR Limited • Building What Endures",
   description: "JBR Limited is a technology company building enduring products and delivering transformative solutions across Africa and beyond.",
+  icons: {
+    icon: "/logo.png", // This looks in your /public folder
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">

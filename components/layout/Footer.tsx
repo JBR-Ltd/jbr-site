@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const cols = {
-  Company: [["About Us","/about"],["Ventures","/ventures"],["Services","/services"],["Careers","#"]],
+  Company: [["About Us","/about"],["Ventures","/ventures"],["Services","/services"],/*["Careers","#"]*/],
   Connect:  [["Contact","/contact"],["LinkedIn","https://www.linkedin.com/company/rello-jbr/"],["X","https://x.com/rello_online"],["Instagram","https://www.instagram.com/rello.jbr?utm_source=qr"], ["Facebook", "https://www.facebook.com/profile.php?id=61590472272578"]],
   Legal:    [["Privacy Policy","#"],["Terms of Use","#"]],
 };
