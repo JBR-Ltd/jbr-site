@@ -23,7 +23,7 @@ export default function Footer() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "4rem", marginBottom: "5rem" }} className="footer-grid">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-              <Image src="/logo.png" alt="JBR Limited" width={36} height={36} style={{ objectFit: "contain" }} />
+              <Image src="/logo.png" alt="JBR Limited" width={36} height={36} style={{ objectFit: "contain",transform: "rotate(180deg)" }} />
               <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: "1rem", letterSpacing: "0.15em", color: "#EDE6D6", fontWeight: 600 }}>JBR<span style={{ color: "#C9853E", marginLeft: 4, fontWeight: 400 }}>LIMITED</span></span>
             </div>
             <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.8rem", color: "rgba(237,230,214,0.5)", lineHeight: 1.8, maxWidth: 260 }}>Building tomorrow&apos;s infrastructure through technology, vision, and deliberate craft. Lagos, Nigeria.</p>
