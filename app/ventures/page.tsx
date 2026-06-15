@@ -92,7 +92,7 @@ export default function VenturesPage() {
                   Visit Platform
                 </a>
                 <span style={{ fontFamily:"Inter,sans-serif", fontSize:"0.65rem", letterSpacing:"0.2em", textTransform:"uppercase", padding:"12px 16px", color:"rgba(201,133,62,0.8)", display:"flex", alignItems:"center" }}>
-                  Live · 2025
+                  Live · 2026
                 </span>
               </div>
             </FadeIn>

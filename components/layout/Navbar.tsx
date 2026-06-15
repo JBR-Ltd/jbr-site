@@ -45,7 +45,7 @@ export default function Navbar() {
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem", height: 76, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           {/* Logo Link - Added onClick to close mobile menu */}
           <Link href="/" onClick={() => setMenuOpen(false)} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
-            <Image src="/logo.png" alt="JBR Limited" width={36} height={36} style={{ objectFit: "contain" }} priority />
+            <Image src="/logo.png" alt="JBR Limited" width={36} height={36} style={{ objectFit: "contain",transform: "rotate(180deg)" }} priority />
             <span style={{ fontFamily: '"Space Grotesk", sans-serif', fontSize: "1.05rem", letterSpacing: "0.15em", color: "#EDE6D6", fontWeight: 600 }}>
               JBR<span style={{ color: "#C9853E", marginLeft: 4, fontWeight: 400 }}>LIMITED</span>
             </span>
