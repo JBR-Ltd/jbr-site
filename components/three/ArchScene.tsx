@@ -105,6 +105,20 @@ function NarrativeGroup({ scrollProgress }: { scrollProgress: number }) {
     return cols;
   }, []);
 
+  // Stable, memoized ref-setter factory — react-three-fiber re-renders on
+  // every animation frame via useFrame, and an inline arrow function passed
+  // directly as `ref={(el) => ...}` is recreated on every single render.
+  // React treats a changed ref identity as "detach old ref, attach new ref",
+  // so that one line was firing ~80 ref callback calls per frame (40 meshes
+  // x null-then-set), 60 times a second — the actual source of the multi-
+  // second TBT on desktop. Memoizing one stable callback per index fixes it.
+  const setRefs = useMemo(
+    () => columns.map((_, idx) => (el: Mesh | null) => {
+      if (el) innerRefs.current[idx] = el;
+    }),
+    [columns]
+  );
+
   useFrame(({ clock }) => {
     if (!groupRef.current) return;
     const t = clock.getElapsedTime();
@@ -172,7 +186,7 @@ function NarrativeGroup({ scrollProgress }: { scrollProgress: number }) {
       {columns.map(({ basePos, bright }, i) => (
         <mesh
           key={i}
-          ref={(el) => { if (el) innerRefs.current[i] = el; }}
+          ref={setRefs[i]}
           position={basePos}
         >
           <boxGeometry args={[0.06, 3.8, 0.06]} />
