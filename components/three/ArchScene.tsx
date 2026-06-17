@@ -2,10 +2,11 @@
 import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
-import * as THREE from "three";
+import type { Mesh, Points, Group } from "three";
+import { DoubleSide } from "three";
 
 function ArchColumn({ position, bright = false }: { position: [number, number, number]; bright?: boolean }) {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<Mesh>(null);
   useFrame(({ clock }) => {
     if (meshRef.current) {
       meshRef.current.rotation.y = clock.getElapsedTime() * 0.06;
@@ -41,7 +42,7 @@ function FloatingPlane({ position, rotation, opacity = 0.55 }: {
           emissiveIntensity={0.6}
           metalness={0.55}
           roughness={0.3}
-          side={THREE.DoubleSide}
+          side={DoubleSide}
           transparent
           opacity={opacity}
         />
@@ -51,8 +52,8 @@ function FloatingPlane({ position, rotation, opacity = 0.55 }: {
 }
 
 function ParticleField({ scrollProgress }: { scrollProgress: number }) {
-  const count = 140;
-  const ref = useRef<THREE.Points>(null);
+  const count = 70;
+  const ref = useRef<Points>(null);
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -89,8 +90,8 @@ function ParticleField({ scrollProgress }: { scrollProgress: number }) {
    0.7–1.0  ventures/cta → columns converge into a single tight tower
 */
 function NarrativeGroup({ scrollProgress }: { scrollProgress: number }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const innerRefs = useRef<THREE.Mesh[]>([]);
+  const groupRef = useRef<Group>(null);
+  const innerRefs = useRef<Mesh[]>([]);
 
   const columns = useMemo(() => {
     const cols: Array<{ basePos: [number,number,number]; bright: boolean }> = [];
@@ -222,7 +223,8 @@ export default function ArchScene({ scrollProgress = 0 }: { scrollProgress?: num
   return (
     <Canvas
       camera={{ position: [0, 0, 5.5], fov: 58 }}
-      gl={{ antialias: true, alpha: true }}
+      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      dpr={[1, 1.5]}
       style={{ width: "100%", height: "100%", background: "transparent" }}
     >
       <SceneSetup />

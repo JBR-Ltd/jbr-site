@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -8,8 +7,8 @@
   --color-base:      #0A0807;
   --color-highlight: #E89B4D;
 
-  --font-display: "Space Grotesk", sans-serif;
-  --font-sans:    "Inter", sans-serif;
+  --font-display: var(--font-display), sans-serif;
+  --font-sans:    var(--font-sans), sans-serif;
 
   --letter-spacing-widest2: 0.2em;
   --letter-spacing-widest3: 0.32em;
@@ -62,6 +61,43 @@ body {
 /* ── Helpers ── */
 .hr-accent { width: 56px; height: 1px; background: #C9853E; }
 .reveal-clip { overflow: hidden; }
+
+/* ── Responsive section padding ──
+   Sections set 7-9rem vertical padding for desktop breathing room.
+   On mobile that's 110-140px of empty space per section, which is most
+   of why scrolling felt like an endless single column. Cut it down. */
+@media (max-width: 768px) {
+  .section-pad {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+}
+@media (max-width: 480px) {
+  .section-pad {
+    padding-top: 3.25rem !important;
+    padding-bottom: 3.25rem !important;
+  }
+}
+
+/* ── Responsive horizontal padding for content containers ── */
+@media (max-width: 640px) {
+  .section-pad > div:first-child {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+/* ── Decorative grid pulse (ventures hero) ──
+   Single CSS keyframe, GPU-composited, far cheaper than dozens of
+   looping JS-driven animations. */
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.8; }
+}
+.grid-pulse {
+  animation: grid-pulse 3.6s ease-in-out infinite;
+  will-change: opacity;
+}
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 3px; }

@@ -22,10 +22,10 @@ export default function HeroSection() {
         height: "100vh",
         width: "100%",
         overflow: "hidden",
-        // No background, the GlobalScene fixed layer shows through
+        // No background — the GlobalScene fixed layer shows through
       }}
     >
-      {/* Overlay gradients, hero gets deeper vignette than other sections */}
+      {/* Overlay gradients — hero gets deeper vignette than other sections */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
         background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0.72) 100%)",
@@ -56,7 +56,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "Inter, sans-serif",
+              fontFamily: "var(--font-sans)",
               fontSize: "0.63rem",
               letterSpacing: "0.38em",
               textTransform: "uppercase",
@@ -68,7 +68,7 @@ export default function HeroSection() {
           </motion.p>
 
           <TextReveal tag="h1" delay={0.5} style={{
-            fontFamily: '"Space Grotesk", sans-serif',
+            fontFamily: 'var(--font-display)',
             fontSize: "clamp(2.8rem, 6.5vw, 6.2rem)",
             fontWeight: 500,
             color: "#EDE6D6",
@@ -78,7 +78,7 @@ export default function HeroSection() {
             Building What
           </TextReveal>
           <TextReveal tag="h1" delay={0.62} style={{
-            fontFamily: '"Space Grotesk", sans-serif',
+            fontFamily: 'var(--font-display)',
             fontSize: "clamp(2.8rem, 6.5vw, 6.2rem)",
             fontWeight: 400,
             fontStyle: "italic",
@@ -100,15 +100,15 @@ export default function HeroSection() {
             }}
           >
             <p style={{
-              fontFamily: "Inter, sans-serif", fontSize: "0.82rem",
-              color: "rgba(237,230,214,0.55)", maxWidth: 290, lineHeight: 1.85,
+              fontFamily: "var(--font-sans)", fontSize: "0.82rem",
+              color: "rgba(237,230,214,0.72)", maxWidth: 290, lineHeight: 1.85,
             }}>
               JBR Limited is a technology company building enduring products and
               delivering transformative solutions across Africa and beyond.
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: 28, flexWrap: "wrap" }}>
               <a href="/ventures" style={{
-                fontFamily: "Inter, sans-serif", fontSize: "0.66rem", letterSpacing: "0.35em",
+                fontFamily: "var(--font-sans)", fontSize: "0.66rem", letterSpacing: "0.35em",
                 textTransform: "uppercase", padding: "12px 28px", background: "#C9853E",
                 color: "#EDE6D6", textDecoration: "none", transition: "background 0.3s, color 0.3s",
               }}
@@ -117,12 +117,12 @@ export default function HeroSection() {
                 Our Ventures
               </a>
               <a href="/about" style={{
-                fontFamily: "Inter, sans-serif", fontSize: "0.66rem", letterSpacing: "0.35em",
-                textTransform: "uppercase", color: "rgba(237,230,214,0.55)", textDecoration: "none",
+                fontFamily: "var(--font-sans)", fontSize: "0.66rem", letterSpacing: "0.35em",
+                textTransform: "uppercase", color: "rgba(237,230,214,0.72)", textDecoration: "none",
                 display: "flex", alignItems: "center", gap: 10, transition: "color 0.3s",
               }}
                 onMouseEnter={e => (e.currentTarget.style.color="#EDE6D6")}
-                onMouseLeave={e => (e.currentTarget.style.color="rgba(237,230,214,0.55)")}>
+                onMouseLeave={e => (e.currentTarget.style.color="rgba(237,230,214,0.72)")}>
                 Learn More
                 <span style={{ display: "inline-block", width: 28, height: 1, background: "currentColor" }} />
               </a>
@@ -140,8 +140,8 @@ export default function HeroSection() {
         }}
       >
         <span style={{
-          fontFamily: "Inter, sans-serif", fontSize: "0.56rem", letterSpacing: "0.4em",
-          textTransform: "uppercase", color: "rgba(237,230,214,0.3)", writingMode: "vertical-rl",
+          fontFamily: "var(--font-sans)", fontSize: "0.56rem", letterSpacing: "0.4em",
+          textTransform: "uppercase", color: "rgba(237,230,214,0.58)", writingMode: "vertical-rl",
         }}>Scroll</span>
         <motion.div
           animate={{ scaleY: [0, 1, 0] }}
