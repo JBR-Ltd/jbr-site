@@ -1,25 +1,22 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const STORAGE_KEY = "jbr_loaded_v2";
+const STORAGE_KEY = "jbr_loaded_v1";
 
-// Exact SVG path coordinates mapping the 6 interlocking blocks of the JBR logo
-const SHAPES = [
-  // Left side: Orange/Amber blocks
-  { d: "M 122 68 L 212 113 L 212 139 L 122 94 Z", color: "#F38D1E" }, // Top orange
-  { d: "M 82 133 L 172 178 L 172 204 L 82 159 Z", color: "#F38D1E" },  // Middle orange
-  { d: "M 122 198 L 212 243 L 212 269 L 122 224 Z", color: "#F38D1E" }, // Bottom orange
-  
-  // Right side: Dark Gray blocks
-  { d: "M 187 133 L 277 178 L 277 204 L 187 159 Z", color: "#5C6064" }, // Top gray
-  { d: "M 227 198 L 317 243 L 317 269 L 227 224 Z", color: "#5C6064" }, // Middle gray
-  { d: "M 187 263 L 277 308 L 277 334 L 187 289 Z", color: "#5C6064" }, // Bottom gray
+// Approximate node points tracing the JBR diamond/maze logo silhouette.
+// Trimmed from 19 to 10 points, still reads as the logo shape forming,
+// but roughly halves the number of simultaneously animating SVG elements
+// during the most LCP-sensitive window of the page.
+const NODES = [
+  { x: 200, y: 60 },  { x: 300, y: 200 }, { x: 200, y: 340 }, { x: 100, y: 200 },
+  { x: 200, y: 110 }, { x: 240, y: 140 }, { x: 200, y: 170 }, { x: 160, y: 140 },
+  { x: 200, y: 230 }, { x: 200, y: 290 },
 ];
 
 export default function Loader() {
   const [visible, setVisible] = useState<boolean | null>(null);
-  const [phase, setPhase] = useState("drawing");
+  const [phase, setPhase] = useState<"particles" | "form" | "done">("particles");
 
   useEffect(() => {
     try {
@@ -38,9 +35,9 @@ export default function Loader() {
 
   useEffect(() => {
     if (!visible) return;
-    const t1 = setTimeout(() => setPhase("filling"), 1400);
-    const t2 = setTimeout(() => setPhase("done"), 2600);
-    const t3 = setTimeout(() => setVisible(false), 3200);
+    const t1 = setTimeout(() => setPhase("form"), 750);
+    const t2 = setTimeout(() => setPhase("done"), 1350);
+    const t3 = setTimeout(() => setVisible(false), 1700);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [visible]);
 
@@ -54,78 +51,89 @@ export default function Loader() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            position: "fixed", 
-            inset: 0, 
-            zIndex: 99999,
-            background: "transparent", // Transparent background as requested
-            display: "flex", 
-            flexDirection: "column",
-            alignItems: "center", 
-            justifyContent: "center",
-            gap: 20,
-            backdropFilter: "blur(4px)", // Optional: adds a slight blur to content behind
+            position: "fixed", inset: 0, zIndex: 99999,
+            background: "#0A0807",
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center",
+            gap: 28,
           }}
         >
           {/* SVG boot-up sequence */}
-          <div style={{ width: 220, height: 220, position: "relative" }}>
-            <svg viewBox="0 0 400 400" width="100%" height="100%">
-              {SHAPES.map((shape, i) => (
-                <motion.path
+          <div style={{ width: 180, height: 180, position: "relative" }}>
+            <svg viewBox="0 0 400 400" width="180" height="180">
+              {/* Particle phase */}
+              {phase === "particles" && NODES.map((n, i) => (
+                <motion.circle
                   key={i}
-                  d={shape.d}
-                  stroke={shape.color}
-                  strokeWidth="3"
-                  strokeLinejoin="round"
-                  initial={{ 
-                    pathLength: 0, 
-                    fill: "rgba(0,0,0,0)",
-                    opacity: 0 
-                  }}
+                  cx={n.x} cy={n.y} r={3}
+                  fill="#C9853E"
+                  initial={{ opacity: 0, scale: 0 }}
                   animate={{
-                    pathLength: [0, 1, 1],
-                    fill: ["rgba(0,0,0,0)", "rgba(0,0,0,0)", shape.color],
-                    opacity: [0, 1, 1]
+                    opacity: [0, 1, 0.6],
+                    scale: [0, 1.4, 1],
                   }}
                   transition={{
-                    duration: 2.2,
-                    times: [0, 0.6, 1], // 0-60% time drawing stroke, 60-100% filling color
-                    ease: "easeInOut",
-                    delay: i * 0.15,
+                    duration: 0.5,
+                    delay: i * 0.035,
+                    ease: [0.16, 1, 0.3, 1],
                   }}
+                />
+              ))}
+
+              {/* Form phase, the actual logo fades/draws in */}
+              {(phase === "form" || phase === "done") && (
+                <motion.image
+                  href="/logo.png"
+                  x="40" y="40" width="320" height="320"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                   style={{
-                    filter: "drop-shadow(0px 4px 12px rgba(0,0,0,0.15))",
+                    filter: "drop-shadow(0 0 24px rgba(201,133,62,0.35))",
                   }}
+                />
+              )}
+
+              {/* Connecting lines during particle phase */}
+              {phase === "particles" && NODES.slice(0, -1).map((n, i) => (
+                <motion.line
+                  key={`l-${i}`}
+                  x1={n.x} y1={n.y} x2={NODES[i + 1].x} y2={NODES[i + 1].y}
+                  stroke="#C9853E" strokeWidth="0.5" opacity="0.25"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.25 }}
+                  transition={{ duration: 0.4, delay: i * 0.035 + 0.1 }}
                 />
               ))}
             </svg>
           </div>
 
           {/* Wordmark + status line */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
             <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
               style={{
-                fontFamily: '"Space Grotesk", sans-serif',
-                fontSize: "2.5rem",
-                letterSpacing: "0.1em",
-                color: "#4A4D50", // Matches the gray from the logo text
-                fontWeight: 700,
+                fontFamily: 'var(--font-display)',
+                fontSize: "0.8rem",
+                letterSpacing: "0.45em",
+                textTransform: "uppercase",
+                color: "#EDE6D6",
+                fontWeight: 500,
               }}
             >
-              JBR
+              JBR LIMITED
             </motion.span>
 
             {/* Progress bar */}
-            <div style={{ width: 140, height: 2, background: "rgba(243,141,30,0.2)", overflow: "hidden", marginTop: 8, borderRadius: 2 }}>
+            <div style={{ width: 160, height: 1, background: "rgba(201,133,62,0.15)", overflow: "hidden", marginTop: 6 }}>
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 2.8, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                 style={{
-                  height: "100%", 
-                  background: "#F38D1E",
+                  height: "100%", background: "#C9853E",
                   transformOrigin: "left",
                 }}
               />
@@ -137,16 +145,16 @@ export default function Loader() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
               style={{
-                fontFamily: '"Space Grotesk", sans-serif',
-                fontSize: "0.65rem",
-                letterSpacing: "0.2em",
+                fontFamily: 'var(--font-display)',
+                fontSize: "0.62rem",
+                letterSpacing: "0.3em",
                 textTransform: "uppercase",
-                color: "#888",
-                marginTop: 6,
+                color: "rgba(237,230,214,0.76)",
+                marginTop: 4,
               }}
             >
-              {phase === "drawing" && "Mapping structure"}
-              {phase === "filling" && "Rendering interface"}
+              {phase === "particles" && "Initializing system"}
+              {phase === "form" && "Rendering interface"}
               {phase === "done" && "Ready"}
             </motion.span>
           </div>
