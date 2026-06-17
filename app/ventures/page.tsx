@@ -73,8 +73,7 @@ export default function VenturesPage() {
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"5rem", alignItems:"start", marginBottom:"6rem" }} className="venture-intro">
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
-                <Image src="/rello.png" alt="Rello" width={44} height={44} style={{ objectFit: "contain" }} />
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: "0.7rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#C9853E", fontWeight: 600 }}>Rello</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: "0.9rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#C9853E", fontWeight: 600 }}>Rello</span>
               </div>
               <TextReveal tag="h2" style={{ fontFamily:'var(--font-display)', fontSize:"clamp(1.9rem,3.5vw,3rem)", fontWeight:500, color:"#EDE6D6", marginBottom:24 }}>
                 The Real Estate Platform
