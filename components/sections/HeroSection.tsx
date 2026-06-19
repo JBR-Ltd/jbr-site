@@ -1,130 +1,88 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import TextReveal from "@/components/ui/TextReveal";
 
 export default function HeroSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const contentY       = useTransform(scrollYProgress, [0, 0.55], ["0px", "-50px"]);
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.6], ["0px", "-40px"]);
 
   return (
-    <section
-      ref={sectionRef}
-      style={{
-        position: "relative",
-        height: "100vh",
-        width: "100%",
-        overflow: "hidden",
-        // No background — the GlobalScene fixed layer shows through
-      }}
-    >
-      {/* Overlay gradients — hero gets deeper vignette than other sections */}
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-        background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0.72) 100%)",
-      }} />
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-        background: "linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 55%)",
-      }} />
+    <section ref={ref} style={{ position: "relative", height: "100svh", minHeight: 560, overflow: "hidden", background: "#050810" }}>
 
-      {/* Hero content */}
+      {/* Ambient glow orbs — CSS only, zero JS cost */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+        <div style={{ position: "absolute", top: "20%", left: "15%", width: "40vw", height: "40vw", maxWidth: 500, maxHeight: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 65%)", filter: "blur(40px)" }} />
+        <div style={{ position: "absolute", bottom: "10%", right: "10%", width: "30vw", height: "30vw", maxWidth: 400, maxHeight: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,100,200,0.1) 0%, transparent 65%)", filter: "blur(40px)" }} />
+        {/* Grid lines */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+      </div>
+
+      {/* Content — centered on mobile, bottom-left on desktop */}
       <motion.div
-        style={{
-          opacity: contentOpacity,
-          y: contentY,
-          position: "absolute",
-          inset: 0,
-          zIndex: 2,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          padding: "0 3rem 4.5rem",
-          pointerEvents: "none",
-        }}
+        style={{ opacity, y, position: "absolute", inset: 0, display: "flex", flexDirection: "column", zIndex: 2 }}
+        className="hero-content-wrap"
       >
-        <div style={{ maxWidth: 1280, width: "100%", margin: "0 auto" }}>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.63rem",
-              letterSpacing: "0.38em",
-              textTransform: "uppercase",
-              color: "#C9853E",
-              marginBottom: 22,
-            }}
-          >
-            Technology · Ventures · Infrastructure
-          </motion.p>
-
-          <TextReveal tag="h1" delay={0.5} style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: "clamp(2.8rem, 6.5vw, 6.2rem)",
-            fontWeight: 500,
-            color: "#EDE6D6",
-            lineHeight: 0.92,
-            letterSpacing: "-0.01em",
-          }}>
-            Building What
-          </TextReveal>
-          <TextReveal tag="h1" delay={0.62} style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: "clamp(2.8rem, 6.5vw, 6.2rem)",
-            fontWeight: 400,
-            fontStyle: "italic",
-            color: "#C9853E",
-            lineHeight: 0.92,
-            letterSpacing: "-0.01em",
-            marginBottom: 40,
-          }}>
-            Endures.
-          </TextReveal>
-
+        {/* Desktop: bottom-left. Mobile: center */}
+        <div className="hero-inner">
+          {/* Eyebrow */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              display: "flex", flexWrap: "wrap", alignItems: "flex-end",
-              gap: "1.5rem 3.5rem", pointerEvents: "all",
-            }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}
           >
-            <p style={{
-              fontFamily: "var(--font-sans)", fontSize: "0.82rem",
-              color: "rgba(237,230,214,0.72)", maxWidth: 290, lineHeight: 1.85,
-            }}>
-              JBR Limited is a technology company building enduring products and
-              delivering transformative solutions across Africa and beyond.
+            <span style={{ display: "block", width: 24, height: 1, background: "#00D4FF", boxShadow: "0 0 6px rgba(0,212,255,0.6)" }} />
+            <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.4em", textTransform: "uppercase", color: "#00D4FF", textShadow: "0 0 10px rgba(0,212,255,0.5)" }}>
+              Technology · Ventures · Infrastructure
             </p>
-            <div style={{ display: "flex", alignItems: "center", gap: 28, flexWrap: "wrap" }}>
-              <a href="/ventures" style={{
-                fontFamily: "var(--font-sans)", fontSize: "0.66rem", letterSpacing: "0.35em",
-                textTransform: "uppercase", padding: "12px 28px", background: "#C9853E",
-                color: "#EDE6D6", textDecoration: "none", transition: "background 0.3s, color 0.3s",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.background="#EDE6D6"; e.currentTarget.style.color="#0A0807"; }}
-                onMouseLeave={e => { e.currentTarget.style.background="#C9853E"; e.currentTarget.style.color="#EDE6D6"; }}>
+          </motion.div>
+
+          {/* Headline */}
+          <div style={{ overflow: "hidden" }}>
+            <motion.h1
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="hero-headline"
+            >
+              Building What
+            </motion.h1>
+          </div>
+          <div style={{ overflow: "hidden" }}>
+            <motion.h1
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="hero-headline hero-headline-accent"
+            >
+              Endures.
+            </motion.h1>
+          </div>
+
+          {/* Sub + CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="hero-sub"
+          >
+            <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", color: "rgba(232,244,255,0.6)", lineHeight: 1.8, maxWidth: 320 }}>
+              JBR Limited builds enduring technology products and delivers transformative solutions across Africa and beyond.
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 24 }}>
+              <a href="/ventures"
+                style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 600, padding: "12px 28px", background: "#00D4FF", color: "#050810", textDecoration: "none", transition: "all 0.3s", boxShadow: "0 0 20px rgba(0,212,255,0.35)" }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 36px rgba(0,212,255,0.6)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 20px rgba(0,212,255,0.35)"; e.currentTarget.style.transform = "translateY(0)"; }}>
                 Our Ventures
               </a>
-              <a href="/about" style={{
-                fontFamily: "var(--font-sans)", fontSize: "0.66rem", letterSpacing: "0.35em",
-                textTransform: "uppercase", color: "rgba(237,230,214,0.72)", textDecoration: "none",
-                display: "flex", alignItems: "center", gap: 10, transition: "color 0.3s",
-              }}
-                onMouseEnter={e => (e.currentTarget.style.color="#EDE6D6")}
-                onMouseLeave={e => (e.currentTarget.style.color="rgba(237,230,214,0.72)")}>
+              <a href="/about"
+                style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 600, padding: "12px 28px", border: "1px solid rgba(0,212,255,0.4)", color: "#00D4FF", textDecoration: "none", transition: "all 0.3s" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "rgba(0,212,255,0.08)"; e.currentTarget.style.borderColor = "#00D4FF"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(0,212,255,0.4)"; }}>
                 Learn More
-                <span style={{ display: "inline-block", width: 28, height: 1, background: "currentColor" }} />
               </a>
             </div>
           </motion.div>
@@ -133,26 +91,54 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2, duration: 1 }}
-        style={{
-          position: "absolute", bottom: 28, right: 44, zIndex: 3,
-          display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
-        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8, duration: 1 }}
+        style={{ position: "absolute", bottom: 28, right: 28, zIndex: 3, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}
       >
-        <span style={{
-          fontFamily: "var(--font-sans)", fontSize: "0.56rem", letterSpacing: "0.4em",
-          textTransform: "uppercase", color: "rgba(237,230,214,0.58)", writingMode: "vertical-rl",
-        }}>Scroll</span>
-        <motion.div
-          animate={{ scaleY: [0, 1, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            width: 1, height: 52,
-            background: "linear-gradient(to bottom, transparent, #C9853E)",
-            transformOrigin: "top",
-          }}
-        />
+        <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.52rem", letterSpacing: "0.4em", textTransform: "uppercase", color: "rgba(0,212,255,0.4)", writingMode: "vertical-rl" }}>Scroll</span>
+        <motion.div animate={{ scaleY: [0, 1, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          style={{ width: 1, height: 44, background: "linear-gradient(to bottom, transparent, #00D4FF)", transformOrigin: "top", boxShadow: "0 0 6px rgba(0,212,255,0.4)" }} />
       </motion.div>
+
+      <style>{`
+        .hero-content-wrap {
+          justify-content: flex-end;
+          padding: 0 3rem 4rem;
+        }
+        .hero-inner {
+          max-width: 1280px;
+          width: 100%;
+          margin: 0 auto;
+        }
+        .hero-headline {
+          font-family: var(--font-display);
+          font-size: clamp(3rem, 7vw, 6.5rem);
+          font-weight: 700;
+          color: #E8F4FF;
+          line-height: 0.95;
+          letter-spacing: -0.02em;
+        }
+        .hero-headline-accent {
+          color: #00D4FF;
+          text-shadow: 0 0 40px rgba(0,212,255,0.5), 0 0 80px rgba(0,212,255,0.2);
+          font-style: italic;
+          margin-bottom: 28px;
+        }
+        .hero-sub { max-width: 480px; }
+        @media (max-width: 768px) {
+          .hero-content-wrap {
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 5rem 1.5rem 2rem !important;
+            text-align: center;
+          }
+          .hero-inner { display: flex; flex-direction: column; align-items: center; }
+          .hero-headline { font-size: clamp(2.4rem, 10vw, 3.5rem) !important; text-align: center; }
+          .hero-sub { max-width: 100%; text-align: center; }
+          .hero-sub > div { justify-content: center; }
+        }
+      `}</style>
     </section>
   );
 }

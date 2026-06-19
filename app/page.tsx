@@ -4,6 +4,7 @@ import ServicesTeaser from "@/components/sections/ServicesTeaser";
 import VentureSpotlight from "@/components/sections/VentureSpotlight";
 import CTASection from "@/components/sections/CTASection";
 
+
 export default function Home() {
   return (
     <>

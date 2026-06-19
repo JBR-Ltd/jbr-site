@@ -1,58 +1,54 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import TextReveal from "@/components/ui/TextReveal";
+import { useState } from "react";
 import FadeIn from "@/components/ui/FadeIn";
 
 const services = [
   { num: "01", title: "Product Engineering", desc: "End-to-end design and development of web and mobile products built to scale from day one." },
-  { num: "02", title: "Technology Consulting", desc: "Strategic guidance for businesses navigating digital transformation, architecture decisions, and tech stack selection." },
-  { num: "03", title: "Venture Building", desc: "We ideate, validate, and build market-ready products in-house, our real estate platform is proof of this." },
-  { num: "04", title: "Systems & Infrastructure", desc: "Robust backend systems, cloud architecture, and DevOps pipelines that underpin reliable digital businesses." },
+  { num: "02", title: "Technology Consulting", desc: "Strategic guidance for businesses navigating digital transformation and architecture decisions." },
+  { num: "03", title: "Venture Building", desc: "We ideate, validate, and build market-ready products in-house, Rello is proof of this model." },
+  { num: "04", title: "Systems & Infrastructure", desc: "Robust backend systems, cloud architecture, and DevOps pipelines for reliable digital businesses." },
 ];
 
 export default function ServicesTeaser() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end","end start"] });
-  const bgY = useTransform(scrollYProgress, [0,1], ["0%","12%"]);
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   return (
-    <section ref={ref} style={{ position: "relative", background: "#2A1C10", padding: "9rem 0", overflow: "hidden" }} className="section-pad">
-      {/* Parallax texture bg */}
-      <motion.div style={{ y: bgY, position: "absolute", inset: -80, background: "radial-gradient(ellipse 60% 60% at 80% 50%, rgba(201,133,62,0.35) 0%, transparent 70%)", pointerEvents: "none" }} />
+    <section className="section-pad" style={{ background: "#050810", position: "relative", overflow: "hidden" }}>
+      {/* Glow */}
+      <div style={{ position: "absolute", top: "50%", right: "-10%", transform: "translateY(-50%)", width: "40vw", height: "40vw", maxWidth: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 65%)", filter: "blur(40px)", pointerEvents: "none" }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem", position: "relative" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 72, flexWrap: "wrap", gap: 24 }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 2rem", position: "relative" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "3rem", flexWrap: "wrap", gap: 16 }}>
           <div>
-            <FadeIn><p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#C9853E", marginBottom: 20 }}>What We Do</p></FadeIn>
-            <TextReveal tag="h2" style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.9rem,3.5vw,3rem)", fontWeight:500, color: "#EDE6D6" }}>
-              Services that move things forward.
-            </TextReveal>
+            <FadeIn><p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.4em", textTransform: "uppercase", color: "#00D4FF", marginBottom: 14, textShadow: "0 0 10px rgba(0,212,255,0.4)" }}>What We Do</p></FadeIn>
+            <FadeIn delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(1.8rem,3.5vw,2.8rem)", fontWeight: 700, color: "#E8F4FF" }}>Services that move things forward.</h2></FadeIn>
           </div>
-          <FadeIn direction="left">
-            <a href="/services" style={{ fontFamily: "var(--font-sans)", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", padding: "12px 28px", border: "1px solid rgba(201,133,62,0.6)", color: "#EDE6D6", textDecoration: "none", transition: "all 0.3s", whiteSpace: "nowrap" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#C9853E"; e.currentTarget.style.borderColor = "#C9853E"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(201,133,62,0.6)"; }}>
+          <FadeIn delay={0.2}>
+            <a href="/services" style={{ fontFamily: "var(--font-sans)", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", padding: "10px 22px", border: "1px solid rgba(0,212,255,0.35)", color: "#00D4FF", textDecoration: "none", transition: "all 0.3s", whiteSpace: "nowrap" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(0,212,255,0.08)"; e.currentTarget.style.borderColor = "#00D4FF"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(0,212,255,0.35)"; }}>
               All Services
             </a>
           </FadeIn>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "1px", background: "rgba(201,133,62,0.2)" }} className="services-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "1px", background: "rgba(0,212,255,0.08)" }} className="srv-grid">
           {services.map((s, i) => (
-            <FadeIn key={s.num} delay={i * 0.09} direction="up">
-              <div style={{ background: "#2A1C10", padding: "2.5rem", transition: "background 0.4s" }} className="service-card"
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(201,133,62,0.18)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#2A1C10")}>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: "0.9rem", color: "rgba(201,133,62,0.6)", letterSpacing: "0.2em", display: "block", marginBottom: 20 }}>{s.num}</span>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: "1.7rem", fontWeight: 400, color: "#EDE6D6", marginBottom: 14 }}>{s.title}</h3>
-                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "rgba(237,230,214,0.8)", lineHeight: 1.85 }}>{s.desc}</p>
+            <FadeIn key={s.num} delay={i * 0.08}>
+              <div
+                onMouseEnter={() => setActiveIdx(i)} onMouseLeave={() => setActiveIdx(null)}
+                style={{ padding: "2.5rem 2rem", background: activeIdx === i ? "rgba(0,212,255,0.05)" : "#050810", transition: "background 0.3s", cursor: "default", position: "relative", overflow: "hidden" }}
+              >
+                {activeIdx === i && <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, transparent, #00D4FF, transparent)", boxShadow: "0 0 8px rgba(0,212,255,0.5)" }} />}
+                <span style={{ fontFamily: "var(--font-display)", fontSize: "0.85rem", color: "rgba(0,212,255,0.3)", letterSpacing: "0.2em", display: "block", marginBottom: 16 }}>{s.num}</span>
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.35rem", fontWeight: 600, color: activeIdx === i ? "#00D4FF" : "#E8F4FF", marginBottom: 10, transition: "color 0.3s", textShadow: activeIdx === i ? "0 0 20px rgba(0,212,255,0.3)" : "none" }}>{s.title}</h3>
+                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.82rem", color: "rgba(232,244,255,0.6)", lineHeight: 1.75 }}>{s.desc}</p>
               </div>
             </FadeIn>
           ))}
         </div>
       </div>
-      <style>{`.services-grid { @media(max-width:768px){grid-template-columns:1fr !important;} }`}</style>
+      <style>{`.srv-grid{@media(max-width:640px){grid-template-columns:1fr !important;}}`}</style>
     </section>
   );
 }
