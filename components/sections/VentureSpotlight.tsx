@@ -12,14 +12,14 @@ export default function VentureSpotlight() {
   const textX    = useTransform(scrollYProgress, [0,1], ["-3%","3%"]);
 
   return (
-    <section ref={ref} style={{ background: "#0A0807", padding: "9rem 0", overflow: "hidden", position: "relative" }} className="section-pad">
+    <section ref={ref} style={{ background: "#050810", padding: "9rem 0", overflow: "hidden", position: "relative" }} className="section-pad">
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem" }}>
         <FadeIn style={{ marginBottom: 64 }}>
-          <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#C9853E" }}>Flagship Venture</p>
+          <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#00D4FF" }}>Flagship Venture</p>
         </FadeIn>
 
         <div style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: "5rem", alignItems: "center" }} className="venture-grid">
-          {/* Visual panel, card drives its own height, no outer wrapper */}
+          {/* Visual panel — card drives its own height, no outer wrapper */}
           <div style={{ position: "relative", width: "100%", maxWidth: 420 }}>
             <motion.div
               style={{ rotate: logoRot, display: "flex", alignItems: "center", justifyContent: "center" }}
@@ -35,8 +35,10 @@ export default function VentureSpotlight() {
                 background: "rgba(10,8,7,0.55)",
                 backdropFilter: "blur(14px)",
                 WebkitBackdropFilter: "blur(14px)",
+                border: "1px solid rgba(0,212,255,0.35)",
+                borderRadius: 8,
                 padding: "8%",
-                
+                boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
               }}>
                 <Image
                   src="/rello-logo.svg"
@@ -50,32 +52,32 @@ export default function VentureSpotlight() {
 
           {/* Text panel */}
           <motion.div style={{ x: textX }}>
-            <TextReveal tag="h2" delay={0.1} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2rem,3.8vw,3.4rem)", fontWeight:500, color: "#EDE6D6", marginBottom: 24 }}>
+            <TextReveal tag="h2" delay={0.1} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2rem,3.8vw,3.4rem)", fontWeight:500, color: "#E8F4FF", marginBottom: 24 }}>
               The real estate platform Africa deserves.
             </TextReveal>
             <FadeIn delay={0.3} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.82rem", color: "rgba(237,230,214,0.82)", lineHeight: 1.9 }}>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.82rem", color: "rgba(232,244,255,0.82)", lineHeight: 1.9 }}>
                 Our flagship venture is a technology-first real estate platform built for the African market, connecting buyers, sellers, and agents through a seamless, trustworthy digital experience.
               </p>
-              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.82rem", color: "rgba(237,230,214,0.82)", lineHeight: 1.9 }}>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.82rem", color: "rgba(232,244,255,0.82)", lineHeight: 1.9 }}>
                 From property discovery to transaction completion, we're replacing friction with clarity, and opacity with trust.
               </p>
 
               {/* Feature pills */}
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 8 }}>
                 {["Property Search","Agent Verified","Secure Transactions","Market Analytics"].map(f => (
-                  <span key={f} style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", padding: "6px 14px", border: "1px solid rgba(201,133,62,0.5)", color: "rgba(237,230,214,0.75)" }}>{f}</span>
+                  <span key={f} style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", padding: "6px 14px", border: "1px solid rgba(0,212,255,0.5)", color: "rgba(232,244,255,0.75)" }}>{f}</span>
                 ))}
               </div>
 
               <div style={{ display: "flex", gap: 24, marginTop: 8, flexWrap: "wrap" }}>
-                <a href="/ventures" style={{ fontFamily: "var(--font-sans)", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", padding: "12px 28px", background: "#C9853E", color: "#EDE6D6", textDecoration: "none", transition: "all 0.3s" }}
-                  onMouseEnter={e => { e.currentTarget.style.background="#EDE6D6"; e.currentTarget.style.color="#0A0807"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background="#C9853E"; e.currentTarget.style.color="#EDE6D6"; }}>
+                <a href="/ventures" style={{ fontFamily: "var(--font-sans)", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", padding: "12px 28px", background: "#00D4FF", color: "#E8F4FF", textDecoration: "none", transition: "all 0.3s" }}
+                  onMouseEnter={e => { e.currentTarget.style.background="#E8F4FF"; e.currentTarget.style.color="#050810"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background="#00D4FF"; e.currentTarget.style.color="#E8F4FF"; }}>
                   See the Platform
                 </a>
-                <a href="#" aria-label="Visit the Rello platform website" style={{ fontFamily: "var(--font-sans)", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(237,230,214,0.8)", textDecoration: "none", display: "flex", alignItems: "center", gap: 8, transition: "color 0.3s" }}
-                  onMouseEnter={e => (e.currentTarget.style.color="#EDE6D6")} onMouseLeave={e => (e.currentTarget.style.color="rgba(237,230,214,0.8)")}>
+                <a href="#" aria-label="Visit the Rello platform website" style={{ fontFamily: "var(--font-sans)", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", color: "rgba(232,244,255,0.8)", textDecoration: "none", display: "flex", alignItems: "center", gap: 8, transition: "color 0.3s" }}
+                  onMouseEnter={e => (e.currentTarget.style.color="#E8F4FF")} onMouseLeave={e => (e.currentTarget.style.color="rgba(232,244,255,0.8)")}>
                   Visit Site <span style={{ width: 20, height: 1, background: "currentColor", display: "inline-block" }} />
                 </a>
               </div>

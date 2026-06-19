@@ -1,26 +1,30 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import TextReveal from "@/components/ui/TextReveal";
 import FadeIn from "@/components/ui/FadeIn";
 
 const services = [
   {
+    id: 0,
     num: "01", title: "Product Engineering",
     desc: "End-to-end design and development of web and mobile products. From concept to deployed, scalable system, we own the full process.",
     details: ["UI/UX Design","Frontend (Next.js, React)","Backend & APIs","Mobile (React Native)","QA & Testing","DevOps & Deployment"],
   },
   {
+    id: 1,
     num: "02", title: "Technology Consulting",
     desc: "Strategic guidance for businesses navigating digital transformation, architecture decisions, and technology stack selection.",
     details: ["Architecture Review","Stack Selection","Technical Due Diligence","CTO-as-a-Service","Team Structure Advisory","Roadmap Planning"],
   },
   {
+    id: 2,
     num: "03", title: "Venture Building",
     desc: "We ideate, validate, and build market-ready products in-house, partnering with founders who have the domain, while we bring the technology.",
     details: ["Idea Validation","MVP Development","Co-founding Model","Go-to-Market Support","Ongoing Product Iteration","Investor Narrative"],
   },
   {
+    id: 3,
     num: "04", title: "Systems & Infrastructure",
     desc: "Robust backend systems, cloud architecture, and DevOps pipelines that underpin reliable digital businesses at any scale.",
     details: ["Cloud Architecture (AWS/GCP)","Database Design","CI/CD Pipelines","Monitoring & Observability","Security Hardening","Performance Optimisation"],
@@ -29,40 +33,61 @@ const services = [
 
 export default function ServicesPage() {
   const [open, setOpen] = useState<number|null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset:["start start","end start"] });
-  const heroY = useTransform(scrollYProgress,[0,1],["0%","25%"]);
-  const heroOpacity = useTransform(scrollYProgress,[0,0.6],[1,0]);
+
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  // Handle environment detection for clean rendering
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const activeService = open !== null ? services[open] : null;
 
   return (
-    <div style={{ background:"#0A0807" }}>
+    <div style={{ background: "#050810", minHeight: "100vh" }}>
       {/* Hero */}
-      <section ref={heroRef} style={{ position:"relative", minHeight:"80vh", display:"flex", alignItems:"flex-end", overflow:"hidden" }}>
-        <motion.div style={{ y:heroY, position:"absolute", inset:0, background:"linear-gradient(160deg, #0A0807 0%, #2A1C10 50%, #0A0807 100%)" }} />
-        <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 60% 60% at 70% 40%, rgba(201,133,62,0.35) 0%, transparent 70%)" }} />
-        <motion.div style={{ opacity:heroOpacity, position:"relative", maxWidth:1280, margin:"0 auto", padding:"0 3rem 7rem", width:"100%" }}>
-          <motion.p initial={{ opacity:0,y:16 }} animate={{ opacity:1,y:0 }} transition={{ duration:1,delay:0.3,ease:[0.16,1,0.3,1] }}
-            style={{ fontFamily:"var(--font-sans)", fontSize:"0.65rem", letterSpacing:"0.38em", textTransform:"uppercase", color:"#C9853E", marginBottom:28 }}>
+      <section 
+        ref={heroRef} 
+        className="hero-height"
+        style={{ 
+          position: "relative", 
+          display: "flex", 
+          alignItems: "flex-end", 
+          overflow: "hidden" 
+        }}
+      >
+        <motion.div style={{ y: heroY, position: "absolute", inset: 0, background: "linear-gradient(160deg, #050810 0%, #0A0F1E 50%, #050810 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 60% at 70% 40%, rgba(0,212,255,0.35) 0%, transparent 70%)" }} />
+        <motion.div style={{ opacity: heroOpacity, position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 3rem 7rem", width: "100%" }}>
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#00D4FF", marginBottom: 28 }}>
             Services
           </motion.p>
-          <TextReveal tag="h1" delay={0.5} style={{ fontFamily:'var(--font-display)', fontSize:"clamp(2.4rem,5.5vw,4.8rem)", fontWeight:500, color:"#EDE6D6" }}>
+          <TextReveal tag="h1" delay={0.5} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, color: "#E8F4FF" }}>
             Technology that
           </TextReveal>
-          <TextReveal tag="h1" delay={0.65} style={{ fontFamily:'var(--font-display)', fontSize:"clamp(2.4rem,5.5vw,4.8rem)", fontWeight:500, fontStyle:"italic", color:"#C9853E" }}>
+          <TextReveal tag="h1" delay={0.65} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, fontStyle: "italic", color: "#00D4FF" }}>
             creates real value.
           </TextReveal>
         </motion.div>
       </section>
 
       {/* Intro */}
-      <section style={{ padding:"7rem 0", background:"#0A0807" }} className="section-pad">
-        <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 3rem" }}>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1.5fr", gap:"6rem" }} className="intro-grid">
+      <section style={{ padding: "7rem 0", background: "#050810" }} className="section-pad">
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "6rem" }} className="intro-grid">
             <FadeIn>
               <div className="hr-accent" />
             </FadeIn>
             <FadeIn delay={0.2}>
-              <p style={{ fontFamily:"var(--font-sans)", fontSize:"1rem", color:"rgba(237,230,214,0.72)", lineHeight:1.95, maxWidth:520 }}>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "1rem", color: "rgba(232,244,255,0.72)", lineHeight: 1.95, maxWidth: 520 }}>
                 We offer a focused set of services where we can genuinely be the best in the room. We don't do everything, we do the things we're exceptional at, and we do them with complete ownership.
               </p>
             </FadeIn>
@@ -71,59 +96,179 @@ export default function ServicesPage() {
         <style>{`.intro-grid{@media(max-width:768px){grid-template-columns:1fr !important;}}`}</style>
       </section>
 
-      {/* Accordion services */}
-      <section style={{ padding:"0 0 9rem", background:"#0A0807" }}>
-        <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 3rem" }}>
-          {services.map((s, i) => (
-            <FadeIn key={s.num} delay={i * 0.06}>
-              <div style={{ borderTop:"1px solid rgba(201,133,62,0.25)", cursor:"none" }} onClick={() => setOpen(open===i ? null : i)}>
-                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"2rem 0", gap:24 }}>
-                  <div style={{ display:"flex", alignItems:"baseline", gap:28, flex:1 }}>
-                    <span style={{ fontFamily:'var(--font-display)', fontSize:"0.9rem", color:"rgba(201,133,62,0.55)", letterSpacing:"0.2em", minWidth:28 }}>{s.num}</span>
-                    <h2 style={{ fontFamily:'var(--font-display)', fontSize:"clamp(1.4rem,2.8vw,2.2rem)", fontWeight:500, color:"#EDE6D6", transition:"color 0.3s" }}
-                      onMouseEnter={e => (e.currentTarget.style.color="#C9853E")} onMouseLeave={e => (e.currentTarget.style.color="#EDE6D6")}>
-                      {s.title}
-                    </h2>
+      {/* Services Interactivity Section */}
+      <section style={{ padding: "0 0 9rem", background: "#050810" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem" }} className="container-pad">
+          
+          {!isMobile ? (
+            /* ─── DESKTOP ACCORDION LAYOUT ─── */
+            <div>
+              {services.map((s, i) => (
+                <FadeIn key={s.num} delay={i * 0.06}>
+                  <div style={{ borderTop: "1px solid rgba(0,212,255,0.25)", cursor: "pointer" }} onClick={() => setOpen(open === i ? null : i)}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "2rem 0", gap: 24 }}>
+                      <div style={{ display: "flex", alignItems: "baseline", gap: 28, flex: 1 }}>
+                        <span style={{ fontFamily: 'var(--font-display)', fontSize: "0.9rem", color: "rgba(0,212,255,0.55)", letterSpacing: "0.2em", minWidth: 28 }}>{s.num}</span>
+                        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.4rem,2.8vw,2.2rem)", fontWeight: 500, color: "#E8F4FF", transition: "color 0.3s" }}
+                          onMouseEnter={e => (e.currentTarget.style.color = "#00D4FF")} onMouseLeave={e => (e.currentTarget.style.color = "#E8F4FF")}>
+                          {s.title}
+                        </h2>
+                      </div>
+                      <motion.span animate={{ rotate: open === i ? 45 : 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ fontSize: "1.5rem", color: "#00D4FF", flexShrink: 0 }}>+</motion.span>
+                    </div>
+                    <motion.div initial={false} animate={{ height: open === i ? "auto" : 0, opacity: open === i ? 1 : 0 }}
+                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} style={{ overflow: "hidden" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", paddingBottom: "2.5rem", paddingLeft: 56 }}>
+                        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", color: "rgba(232,244,255,0.82)", lineHeight: 1.9 }}>{s.desc}</p>
+                        <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+                          {s.details.map(d => (
+                            <li key={d} style={{ fontFamily: "var(--font-sans)", fontSize: "0.78rem", color: "rgba(232,244,255,0.65)", display: "flex", alignItems: "center", gap: 12 }}>
+                              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#00D4FF", flexShrink: 0 }} />{d}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
                   </div>
-                  <motion.span animate={{ rotate: open===i ? 45 : 0 }} transition={{ duration:0.4, ease:[0.16,1,0.3,1] }}
-                    style={{ fontSize:"1.5rem", color:"#C9853E", flexShrink:0 }}>+</motion.span>
-                </div>
-                <motion.div initial={false} animate={{ height: open===i ? "auto" : 0, opacity: open===i ? 1 : 0 }}
-                  transition={{ duration:0.5, ease:[0.16,1,0.3,1] }} style={{ overflow:"hidden" }}>
-                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"3rem", paddingBottom:"2.5rem", paddingLeft:56 }} className="acc-grid">
-                    <p style={{ fontFamily:"var(--font-sans)", fontSize:"0.85rem", color:"rgba(237,230,214,0.82)", lineHeight:1.9 }}>{s.desc}</p>
-                    <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:10 }}>
-                      {s.details.map(d => (
-                        <li key={d} style={{ fontFamily:"var(--font-sans)", fontSize:"0.78rem", color:"rgba(237,230,214,0.65)", display:"flex", alignItems:"center", gap:12 }}>
-                          <span style={{ width:4, height:4, borderRadius:"50%", background:"#C9853E", flexShrink:0 }} />{d}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              </div>
-            </FadeIn>
-          ))}
-          <div style={{ borderTop:"1px solid rgba(201,133,62,0.25)" }} />
+                </FadeIn>
+              ))}
+              <div style={{ borderTop: "1px solid rgba(0,212,255,0.25)" }} />
+            </div>
+          ) : (
+            /* ─── MOBILE 2X2 GRID LAYOUT ─── */
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", width: "100%" }}>
+              {services.map((s, i) => (
+                <button
+                  key={s.num}
+                  onClick={() => setOpen(i)}
+                  style={{
+                    background: "rgba(10, 15, 30, 0.7)",
+                    border: "1px solid rgba(0, 212, 255, 0.2)",
+                    borderRadius: "12px",
+                    padding: "1.5rem 1rem",
+                    textAlign: "left",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    height: "140px",
+                    cursor: "pointer"
+                  }}
+                >
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: "0.8rem", color: "#00D4FF", opacity: 0.7, fontWeight: 600 }}>
+                    {s.num}
+                  </span>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: 500, color: "#E8F4FF", margin: 0, lineHeight: 1.3 }}>
+                    {s.title}
+                  </h3>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-        <style>{`.acc-grid{@media(max-width:768px){grid-template-columns:1fr !important; padding-left:0 !important; gap:1.5rem !important;}}`}</style>
+        <style>{`
+          @media(max-width:768px){
+            .container-pad { padding: 0 1.5rem !important; }
+          }
+        `}</style>
       </section>
 
+      {/* ─── MOBILE MODAL DRAWER POPUP ─── */}
+      <AnimatePresence>
+        {isMobile && activeService && (
+          <div style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "flex-end" }}>
+            {/* Backdrop Layer */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(null)}
+              style={{ position: "absolute", inset: 0, background: "rgba(3, 5, 10, 0.8)", backdropFilter: "blur(8px)" }}
+            />
+            
+            {/* Popup Content Sheet */}
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 220 }}
+              style={{
+                position: "relative",
+                width: "100%",
+                background: "#0A0F1E",
+                borderTopLeftRadius: "24px",
+                borderTopRightRadius: "24px",
+                borderTop: "1px solid rgba(0, 212, 255, 0.3)",
+                padding: "2rem 1.5rem 3.5rem",
+                maxHeight: "85vh",
+                overflowY: "auto"
+              }}
+            >
+              {/* Drag Handle UI Accent */}
+              <div style={{ width: "40px", height: "4px", background: "rgba(232,244,255,0.2)", borderRadius: "2px", margin: "0 auto 1.5rem" }} onClick={() => setOpen(null)}/>
+              
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
+                <div>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: "0.8rem", color: "#00D4FF", letterSpacing: "0.1em" }}>
+                    Service {activeService.num}
+                  </span>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.4rem", fontWeight: 500, color: "#E8F4FF", marginTop: "4px", margin: 0 }}>
+                    {activeService.title}
+                  </h2>
+                </div>
+                <button 
+                  onClick={() => setOpen(null)}
+                  style={{ background: "rgba(232,244,255,0.05)", border: "none", color: "#00D4FF", borderRadius: "50%", width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem" }}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "rgba(232,244,255,0.85)", lineHeight: 1.7, marginBottom: "2rem" }}>
+                {activeService.desc}
+              </p>
+
+              <div className="hr-accent" style={{ opacity: 0.3, marginBottom: "1.5rem" }} />
+
+              <h4 style={{ fontFamily: "var(--font-display)", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#00D4FF", marginBottom: "1rem" }}>
+                Capabilities
+              </h4>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, padding: 0, margin: 0 }}>
+                {activeService.details.map(d => (
+                  <li key={d} style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", color: "rgba(232,244,255,0.7)", display: "flex", alignItems: "center", gap: 12 }}>
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#00D4FF", flexShrink: 0 }} />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* CTA */}
-      <section style={{ padding:"0 0 9rem", background:"#0A0807" }}>
-        <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 3rem", textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center", gap:32 }}>
-          <TextReveal tag="h2" style={{ fontFamily:'var(--font-display)', fontSize:"clamp(1.9rem,3.5vw,2.9rem)", fontWeight:500, color:"#EDE6D6" }}>
+      <section style={{ padding: "0 0 9rem", background: "#050810" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 32 }}>
+          <TextReveal tag="h2" style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.9rem,3.5vw,2.9rem)", fontWeight: 500, color: "#E8F4FF" }}>
             Ready to start something?
           </TextReveal>
           <FadeIn delay={0.2}>
-            <a href="/contact" style={{ fontFamily:"var(--font-sans)", fontSize:"0.68rem", letterSpacing:"0.35em", textTransform:"uppercase", padding:"14px 36px", background:"#C9853E", color:"#EDE6D6", textDecoration:"none", transition:"all 0.35s" }}
-              onMouseEnter={e => { e.currentTarget.style.background="#EDE6D6"; e.currentTarget.style.color="#0A0807"; }}
-              onMouseLeave={e => { e.currentTarget.style.background="#C9853E"; e.currentTarget.style.color="#EDE6D6"; }}>
+            <a href="/contact" style={{ fontFamily: "var(--font-sans)", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", padding: "14px 36px", background: "#00D4FF", color: "#E8F4FF", textDecoration: "none", transition: "all 0.35s" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#E8F4FF"; e.currentTarget.style.color = "#050810"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#00D4FF"; e.currentTarget.style.color = "#E8F4FF"; }}>
               Talk to Us
             </a>
           </FadeIn>
         </div>
       </section>
+
+      {/* Global CSS Media Queries */}
+      <style>{`
+        .hero-height { min-height: 100vh; }
+        @media (max-width: 768px) {
+          .hero-height { min-height: 80vh !important; }
+        }
+      `}</style>
     </div>
   );
 }

@@ -17,8 +17,8 @@ function ArchColumn({ position, bright = false }: { position: [number, number, n
     <mesh ref={meshRef} position={position}>
       <boxGeometry args={[0.06, 3.8, 0.06]} />
       <meshStandardMaterial
-        color={bright ? "#C9853E" : "#7A4E22"}
-        emissive={bright ? "#5C3A18" : "#2E1B08"}
+        color={bright ? "#00D4FF" : "#005A80"}
+        emissive={bright ? "#003D5C" : "#001A2E"}
         emissiveIntensity={0.7}
         metalness={0.65}
         roughness={0.3}
@@ -37,8 +37,8 @@ function FloatingPlane({ position, rotation, opacity = 0.55 }: {
       <mesh position={position} rotation={rotation}>
         <planeGeometry args={[1.4, 0.9]} />
         <meshStandardMaterial
-          color="#9C6B36"
-          emissive="#3D2510"
+          color="#0088B8"
+          emissive="#002840"
           emissiveIntensity={0.6}
           metalness={0.55}
           roughness={0.3}
@@ -76,7 +76,7 @@ function ParticleField({ scrollProgress }: { scrollProgress: number }) {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial size={0.028} color="#EDE6D6" transparent opacity={0.5} sizeAttenuation />
+      <pointsMaterial size={0.028} color="#E8F4FF" transparent opacity={0.5} sizeAttenuation />
     </points>
   );
 }
@@ -105,12 +105,12 @@ function NarrativeGroup({ scrollProgress }: { scrollProgress: number }) {
     return cols;
   }, []);
 
-  // Stable, memoized ref-setter factory — react-three-fiber re-renders on
+  // Stable, memoized ref-setter factory, react-three-fiber re-renders on
   // every animation frame via useFrame, and an inline arrow function passed
   // directly as `ref={(el) => ...}` is recreated on every single render.
   // React treats a changed ref identity as "detach old ref, attach new ref",
   // so that one line was firing ~80 ref callback calls per frame (40 meshes
-  // x null-then-set), 60 times a second — the actual source of the multi-
+  // x null-then-set), 60 times a second, the actual source of the multi-
   // second TBT on desktop. Memoizing one stable callback per index fixes it.
   const setRefs = useMemo(
     () => columns.map((_, idx) => (el: Mesh | null) => {
@@ -191,8 +191,8 @@ function NarrativeGroup({ scrollProgress }: { scrollProgress: number }) {
         >
           <boxGeometry args={[0.06, 3.8, 0.06]} />
           <meshStandardMaterial
-            color={bright ? "#C9853E" : "#7A4E22"}
-            emissive={bright ? "#5C3A18" : "#2E1B08"}
+            color={bright ? "#00D4FF" : "#005A80"}
+            emissive={bright ? "#003D5C" : "#001A2E"}
             emissiveIntensity={0.7}
             metalness={0.65}
             roughness={0.3}
@@ -243,13 +243,13 @@ export default function ArchScene({ scrollProgress = 0 }: { scrollProgress?: num
     >
       <SceneSetup />
       {/* Warm key light from top-right */}
-      <directionalLight position={[5, 8, 3]} intensity={2.4} color="#E8B57D" />
+      <directionalLight position={[5, 8, 3]} intensity={2.4} color="#00D4FF" />
       {/* Cool fill from left */}
-      <directionalLight position={[-4, 2, 6]} intensity={0.9} color="#EDE6D6" />
+      <directionalLight position={[-4, 2, 6]} intensity={0.9} color="#E8F4FF" />
       {/* Warm accent from below */}
-      <pointLight position={[0, -4, 2]} intensity={1.4} color="#C9853E" />
+      <pointLight position={[0, -4, 2]} intensity={1.4} color="#00D4FF" />
       {/* Ambient so nothing is pitch black */}
-      <ambientLight intensity={0.4} color="#4A2E14" />
+      <ambientLight intensity={0.4} color="#001830" />
 
       <CameraRig scrollProgress={scrollProgress} />
       <NarrativeGroup scrollProgress={scrollProgress} />
