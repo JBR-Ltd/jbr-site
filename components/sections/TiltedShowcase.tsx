@@ -42,7 +42,7 @@ export default function StackingShowcase({ cards, heading, eyebrow }: Props) {
     <section
       ref={sectionRef}
       style={{
-        background: "#050810",
+        background: "var(--b)",
         overflow: "hidden",
         position: "relative",
         paddingTop: isMobile ? "4rem" : "6rem",
@@ -59,7 +59,7 @@ export default function StackingShowcase({ cards, heading, eyebrow }: Props) {
           transform: "translate(-50%, -50%)",
           width: "80%",
           height: "60%",
-          background: "radial-gradient(ellipse, rgba(0,212,255,0.05) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse, var(--glow-primary-xs) 0%, transparent 65%)",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -84,9 +84,9 @@ export default function StackingShowcase({ cards, heading, eyebrow }: Props) {
                 fontSize: "0.65rem",
                 letterSpacing: "0.4em",
                 textTransform: "uppercase",
-                color: "#00D4FF",
+                color: "var(--p)",
                 marginBottom: 14,
-                textShadow: "0 0 10px rgba(0,212,255,0.4)",
+                textShadow: "0 0 10px var(--glow-primary-sm)",
               }}
             >
               {eyebrow}
@@ -98,7 +98,7 @@ export default function StackingShowcase({ cards, heading, eyebrow }: Props) {
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
                 fontWeight: 700,
-                color: "#E8F4FF",
+                color: "var(--text-strong)",
               }}
             >
               {heading}
@@ -132,7 +132,7 @@ export default function StackingShowcase({ cards, heading, eyebrow }: Props) {
             fontSize: "0.62rem",
             letterSpacing: "0.3em",
             textTransform: "uppercase",
-            color: "rgba(0,212,255,0.4)",
+            color: "var(--text-muted)",
           }}
         >
           {isMobile ? "Scroll to stack" : "Scroll to expand"}
@@ -143,11 +143,11 @@ export default function StackingShowcase({ cards, heading, eyebrow }: Props) {
         >
           {isMobile ? (
             <svg width="10" height="16" viewBox="0 0 10 16" fill="none">
-              <path d="M5 1v14M1 11l4 4 4-4" stroke="rgba(0,212,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M5 1v14M1 11l4 4 4-4" stroke="var(--border-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           ) : (
             <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
-              <path d="M1 5h14M10 1l5 4-5 4" stroke="rgba(0,212,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M1 5h14M10 1l5 4-5 4" stroke="var(--border-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           )}
         </motion.div>
@@ -193,7 +193,7 @@ function DesktopStack({ cards, smoothProgress }: { cards: ShowcaseCard[]; smooth
 
 function DesktopStackCard({ card, index, total, smoothProgress }: { card: ShowcaseCard; index: number; total: number; smoothProgress: ReturnType<typeof useSpring> }) {
   const [hovered, setHovered] = useState(false);
-  const accent = card.accent || "#00D4FF";
+  const accent = card.accent || "var(--p)";
 
   // Memoized ranges to break the re-rendering loops
   const range = useMemo(() => [index / total, (index + 1) / total], [index, total]);
@@ -240,16 +240,16 @@ function DesktopStackCard({ card, index, total, smoothProgress }: { card: Showca
         style={{
           width: "100%",
           height: "100%",
-          background: hovered ? "rgba(13,21,40,0.95)" : "rgba(13,21,40,0.85)",
-          border: `1px solid ${hovered ? accent : "rgba(0,212,255,0.12)"}`,
+          background: hovered ? "var(--muted)" : "var(--su)",
+          border: `1px solid ${hovered ? accent : "var(--border-primary-xs)"}`,
           borderRadius: 16,
           padding: "2rem",
           position: "relative",
           overflow: "hidden",
           transition: "background 0.4s, border 0.4s",
           boxShadow: hovered
-            ? `0 0 40px rgba(0,212,255,0.15), inset 0 0 60px rgba(0,212,255,0.03)`
-            : `0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.05)`,
+            ? `0 0 40px var(--glow-primary-xs), inset 0 0 60px rgba(201,133,62,0.03)`
+            : `0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px var(--border-primary-xs)`,
           display: "flex",
           flexDirection: "column",
         }}
@@ -267,20 +267,20 @@ function DesktopStackCard({ card, index, total, smoothProgress }: { card: Showca
           }}
         />
 
-        <div style={{ fontFamily: "var(--font-display)", fontSize: "3rem", fontWeight: 700, color: "rgba(0,212,255,0.08)", lineHeight: 1, marginBottom: 16, userSelect: "none" }}>
+        <div style={{ fontFamily: "var(--font-display)", fontSize: "3rem", fontWeight: 700, color: "var(--border-primary-xs)", lineHeight: 1, marginBottom: 16, userSelect: "none" }}>
           {String(index + 1).padStart(2, "0")}
         </div>
 
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 16, padding: "4px 10px", border: `1px solid ${accent}40`, borderRadius: 4, width: "fit-content" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 16, padding: "4px 10px", border: `1px solid var(--border-primary-dim)`, borderRadius: 4, width: "fit-content" }}>
           <span style={{ width: 4, height: 4, borderRadius: "50%", background: accent, boxShadow: `0 0 6px ${accent}`, display: "inline-block" }} />
           <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: accent }}>{card.tag}</span>
         </div>
 
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.4rem", fontWeight: 700, color: "#E8F4FF", marginBottom: 8, lineHeight: 1.2 }}>{card.title}</h3>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", color: "#00D4FF", marginBottom: 12, fontWeight: 600 }}>{card.subtitle}</p>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "rgba(232,244,255,0.6)", lineHeight: 1.7 }}>{card.description}</p>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.4rem", fontWeight: 700, color: "var(--text-strong)", marginBottom: 8, lineHeight: 1.2 }}>{card.title}</h3>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", color: "var(--p)", marginBottom: 12, fontWeight: 600 }}>{card.subtitle}</p>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "var(--text-body)", lineHeight: 1.7 }}>{card.description}</p>
 
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: hovered ? `linear-gradient(90deg, transparent, ${accent}60, transparent)` : "transparent", transition: "background 0.4s" }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: hovered ? `linear-gradient(90deg, transparent, var(--border-primary-dim), transparent)` : "transparent", transition: "background 0.4s" }} />
       </div>
     </motion.div>
   );
@@ -301,7 +301,7 @@ function MobileStack({ cards, smoothProgress }: { cards: ShowcaseCard[]; smoothP
 
 function MobileStackCard({ card, index, total, smoothProgress }: { card: ShowcaseCard; index: number; total: number; smoothProgress: ReturnType<typeof useSpring> }) {
   const [hovered, setHovered] = useState(false);
-  const accent = card.accent || "#00D4FF";
+  const accent = card.accent || "var(--p)";
 
   // Memoized ranges to prevent the mobile re-rendering infinite loops
   const range = useMemo(() => [index / total, (index + 1) / total], [index, total]);
@@ -341,16 +341,16 @@ function MobileStackCard({ card, index, total, smoothProgress }: { card: Showcas
     >
       <div
         style={{
-          background: hovered ? "rgba(13,21,40,0.95)" : "rgba(13,21,40,0.85)",
-          border: `1px solid ${hovered ? accent : "rgba(0,212,255,0.12)"}`,
+          background: hovered ? "var(--muted)" : "var(--su)",
+          border: `1px solid ${hovered ? accent : "var(--border-primary-xs)"}`,
           borderRadius: 16,
           padding: "1.5rem",
           position: "relative",
           overflow: "hidden",
           transition: "background 0.4s, border 0.4s",
           boxShadow: hovered
-            ? `0 0 40px rgba(0,212,255,0.15), inset 0 0 60px rgba(0,212,255,0.03)`
-            : `0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.05)`,
+            ? `0 0 40px var(--glow-primary-xs), inset 0 0 60px rgba(201,133,62,0.03)`
+            : `0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px var(--border-primary-xs)`,
           display: "flex",
           flexDirection: "column",
         }}
@@ -368,20 +368,20 @@ function MobileStackCard({ card, index, total, smoothProgress }: { card: Showcas
           }}
         />
 
-        <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, color: "rgba(0,212,255,0.08)", lineHeight: 1, marginBottom: 12, userSelect: "none" }}>
+        <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, color: "var(--border-primary-xs)", lineHeight: 1, marginBottom: 12, userSelect: "none" }}>
           {String(index + 1).padStart(2, "0")}
         </div>
 
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 14, padding: "4px 10px", border: `1px solid ${accent}40`, borderRadius: 4, width: "fit-content" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 14, padding: "4px 10px", border: `1px solid var(--border-primary-dim)`, borderRadius: 4, width: "fit-content" }}>
           <span style={{ width: 4, height: 4, borderRadius: "50%", background: accent, boxShadow: `0 0 6px ${accent}`, display: "inline-block" }} />
           <span style={{ fontFamily: "var(--font-sans)", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: accent }}>{card.tag}</span>
         </div>
 
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: 700, color: "#E8F4FF", marginBottom: 8, lineHeight: 1.2 }}>{card.title}</h3>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", color: "#00D4FF", marginBottom: 12, fontWeight: 600 }}>{card.subtitle}</p>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "rgba(232,244,255,0.6)", lineHeight: 1.7 }}>{card.description}</p>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: 700, color: "var(--text-strong)", marginBottom: 8, lineHeight: 1.2 }}>{card.title}</h3>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.75rem", color: "var(--p)", marginBottom: 12, fontWeight: 600 }}>{card.subtitle}</p>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.8rem", color: "var(--text-body)", lineHeight: 1.7 }}>{card.description}</p>
 
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: hovered ? `linear-gradient(90deg, transparent, ${accent}60, transparent)` : "transparent", transition: "background 0.4s" }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: hovered ? `linear-gradient(90deg, transparent, var(--border-primary-dim), transparent)` : "transparent", transition: "background 0.4s" }} />
       </div>
     </motion.div>
   );

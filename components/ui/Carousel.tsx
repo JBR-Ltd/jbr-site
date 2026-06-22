@@ -9,7 +9,7 @@ interface CarouselProps {
 
 /**
  * Lightweight horizontal scroll-snap carousel.
- * Uses native CSS scroll-snap instead of a JS library, zero added
+ * Uses native CSS scroll-snap instead of a JS library — zero added
  * bundle weight, smooth on touch devices, works without JS for scrolling.
  * Dots are purely a visual progress indicator, updated on scroll.
  */
@@ -81,7 +81,7 @@ export default function Carousel({ children, gap = 16, itemWidth = "80%" }: Caro
               borderRadius: 3,
               border: "none",
               padding: 0,
-              background: active === i ? "#C9853E" : "rgba(237,230,214,0.25)",
+              background: active === i ? "var(--p)" : "rgba(232,244,255,0.25)",
               transition: "all 0.3s ease",
               cursor: "pointer",
             }}

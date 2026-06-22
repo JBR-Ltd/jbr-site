@@ -51,7 +51,7 @@ export default function ServicesPage() {
   const activeService = open !== null ? services[open] : null;
 
   return (
-    <div style={{ background: "#050810", minHeight: "100vh" }}>
+    <div style={{ background: "var(--b)", minHeight: "100vh" }}>
       {/* Hero */}
       <section 
         ref={heroRef} 
@@ -63,31 +63,31 @@ export default function ServicesPage() {
           overflow: "hidden" 
         }}
       >
-        <motion.div style={{ y: heroY, position: "absolute", inset: 0, background: "linear-gradient(160deg, #050810 0%, #0A0F1E 50%, #050810 100%)" }} />
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 60% at 70% 40%, rgba(0,212,255,0.35) 0%, transparent 70%)" }} />
+        <motion.div style={{ y: heroY, position: "absolute", inset: 0, background: "linear-gradient(160deg, var(--b) 0%, var(--su) 50%, var(--b) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 60% at 70% 40%, var(--color-glow) 0%, transparent 70%)" }} />
         <motion.div style={{ opacity: heroOpacity, position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 3rem 7rem", width: "100%" }}>
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#00D4FF", marginBottom: 28 }}>
+            style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "var(--p)", marginBottom: 28 }}>
             Services
           </motion.p>
-          <TextReveal tag="h1" delay={0.5} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, color: "#E8F4FF" }}>
+          <TextReveal tag="h1" delay={0.5} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, color: "var(--text-strong)" }}>
             Technology that
           </TextReveal>
-          <TextReveal tag="h1" delay={0.65} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, fontStyle: "italic", color: "#00D4FF" }}>
+          <TextReveal tag="h1" delay={0.65} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, fontStyle: "italic", color: "var(--p)" }}>
             creates real value.
           </TextReveal>
         </motion.div>
       </section>
 
       {/* Intro */}
-      <section style={{ padding: "7rem 0", background: "#050810" }} className="section-pad">
+      <section style={{ padding: "7rem 0", background: "var(--b)" }} className="section-pad">
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "6rem" }} className="intro-grid">
             <FadeIn>
               <div className="hr-accent" />
             </FadeIn>
             <FadeIn delay={0.2}>
-              <p style={{ fontFamily: "var(--font-sans)", fontSize: "1rem", color: "rgba(232,244,255,0.72)", lineHeight: 1.95, maxWidth: 520 }}>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "1rem", color: "var(--text-body)", lineHeight: 1.95, maxWidth: 520 }}>
                 We offer a focused set of services where we can genuinely be the best in the room. We don't do everything, we do the things we're exceptional at, and we do them with complete ownership.
               </p>
             </FadeIn>
@@ -97,7 +97,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Interactivity Section */}
-      <section style={{ padding: "0 0 9rem", background: "#050810" }}>
+      <section style={{ padding: "0 0 9rem", background: "var(--b)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem" }} className="container-pad">
           
           {!isMobile ? (
@@ -105,26 +105,26 @@ export default function ServicesPage() {
             <div>
               {services.map((s, i) => (
                 <FadeIn key={s.num} delay={i * 0.06}>
-                  <div style={{ borderTop: "1px solid rgba(0,212,255,0.25)", cursor: "pointer" }} onClick={() => setOpen(open === i ? null : i)}>
+                  <div style={{ borderTop: "1px solid var(--border-primary-dim)", cursor: "pointer" }} onClick={() => setOpen(open === i ? null : i)}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "2rem 0", gap: 24 }}>
                       <div style={{ display: "flex", alignItems: "baseline", gap: 28, flex: 1 }}>
-                        <span style={{ fontFamily: 'var(--font-display)', fontSize: "0.9rem", color: "rgba(0,212,255,0.55)", letterSpacing: "0.2em", minWidth: 28 }}>{s.num}</span>
-                        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.4rem,2.8vw,2.2rem)", fontWeight: 500, color: "#E8F4FF", transition: "color 0.3s" }}
-                          onMouseEnter={e => (e.currentTarget.style.color = "#00D4FF")} onMouseLeave={e => (e.currentTarget.style.color = "#E8F4FF")}>
+                        <span style={{ fontFamily: 'var(--font-display)', fontSize: "0.9rem", color: "var(--text-muted)", letterSpacing: "0.2em", minWidth: 28 }}>{s.num}</span>
+                        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.4rem,2.8vw,2.2rem)", fontWeight: 500, color: "var(--text-strong)", transition: "color 0.3s" }}
+                          onMouseEnter={e => (e.currentTarget.style.color = "var(--p)")} onMouseLeave={e => (e.currentTarget.style.color = "var(--text-strong)")}>
                           {s.title}
                         </h2>
                       </div>
                       <motion.span animate={{ rotate: open === i ? 45 : 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                        style={{ fontSize: "1.5rem", color: "#00D4FF", flexShrink: 0 }}>+</motion.span>
+                        style={{ fontSize: "1.5rem", color: "var(--p)", flexShrink: 0 }}>+</motion.span>
                     </div>
                     <motion.div initial={false} animate={{ height: open === i ? "auto" : 0, opacity: open === i ? 1 : 0 }}
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} style={{ overflow: "hidden" }}>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", paddingBottom: "2.5rem", paddingLeft: 56 }}>
-                        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", color: "rgba(232,244,255,0.82)", lineHeight: 1.9 }}>{s.desc}</p>
+                        <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", color: "var(--text-body)", lineHeight: 1.9 }}>{s.desc}</p>
                         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
                           {s.details.map(d => (
-                            <li key={d} style={{ fontFamily: "var(--font-sans)", fontSize: "0.78rem", color: "rgba(232,244,255,0.65)", display: "flex", alignItems: "center", gap: 12 }}>
-                              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#00D4FF", flexShrink: 0 }} />{d}
+                            <li key={d} style={{ fontFamily: "var(--font-sans)", fontSize: "0.78rem", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 12 }}>
+                              <span style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--p)", flexShrink: 0 }} />{d}
                             </li>
                           ))}
                         </ul>
@@ -133,7 +133,7 @@ export default function ServicesPage() {
                   </div>
                 </FadeIn>
               ))}
-              <div style={{ borderTop: "1px solid rgba(0,212,255,0.25)" }} />
+              <div style={{ borderTop: "1px solid var(--border-primary-dim)" }} />
             </div>
           ) : (
             /* ─── MOBILE 2X2 GRID LAYOUT ─── */
@@ -143,8 +143,8 @@ export default function ServicesPage() {
                   key={s.num}
                   onClick={() => setOpen(i)}
                   style={{
-                    background: "rgba(10, 15, 30, 0.7)",
-                    border: "1px solid rgba(0, 212, 255, 0.2)",
+                    background: "var(--su)",
+                    border: "1px solid var(--border-primary-xs)",
                     borderRadius: "12px",
                     padding: "1.5rem 1rem",
                     textAlign: "left",
@@ -155,10 +155,10 @@ export default function ServicesPage() {
                     cursor: "pointer"
                   }}
                 >
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: "0.8rem", color: "#00D4FF", opacity: 0.7, fontWeight: 600 }}>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: "0.8rem", color: "var(--p)", opacity: 0.7, fontWeight: 600 }}>
                     {s.num}
                   </span>
-                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: 500, color: "#E8F4FF", margin: 0, lineHeight: 1.3 }}>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: 500, color: "var(--text-strong)", margin: 0, lineHeight: 1.3 }}>
                     {s.title}
                   </h3>
                 </button>
@@ -183,7 +183,7 @@ export default function ServicesPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(null)}
-              style={{ position: "absolute", inset: 0, background: "rgba(3, 5, 10, 0.8)", backdropFilter: "blur(8px)" }}
+              style={{ position: "absolute", inset: 0, background: "rgba(10, 8, 7, 0.8)", backdropFilter: "blur(8px)" }}
             />
             
             {/* Popup Content Sheet */}
@@ -195,48 +195,48 @@ export default function ServicesPage() {
               style={{
                 position: "relative",
                 width: "100%",
-                background: "#0A0F1E",
+                background: "var(--mu)",
                 borderTopLeftRadius: "24px",
                 borderTopRightRadius: "24px",
-                borderTop: "1px solid rgba(0, 212, 255, 0.3)",
+                borderTop: "1px solid var(--border-primary-dim)",
                 padding: "2rem 1.5rem 3.5rem",
                 maxHeight: "85vh",
                 overflowY: "auto"
               }}
             >
               {/* Drag Handle UI Accent */}
-              <div style={{ width: "40px", height: "4px", background: "rgba(232,244,255,0.2)", borderRadius: "2px", margin: "0 auto 1.5rem" }} onClick={() => setOpen(null)}/>
+              <div style={{ width: "40px", height: "4px", background: "var(--border-primary-dim)", borderRadius: "2px", margin: "0 auto 1.5rem" }} onClick={() => setOpen(null)}/>
               
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
                 <div>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: "0.8rem", color: "#00D4FF", letterSpacing: "0.1em" }}>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: "0.8rem", color: "var(--p)", letterSpacing: "0.1em" }}>
                     Service {activeService.num}
                   </span>
-                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.4rem", fontWeight: 500, color: "#E8F4FF", marginTop: "4px", margin: 0 }}>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.4rem", fontWeight: 500, color: "var(--text-strong)", marginTop: "4px", margin: 0 }}>
                     {activeService.title}
                   </h2>
                 </div>
                 <button 
                   onClick={() => setOpen(null)}
-                  style={{ background: "rgba(232,244,255,0.05)", border: "none", color: "#00D4FF", borderRadius: "50%", width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem" }}
+                  style={{ background: "var(--border-primary-xs)", border: "none", color: "var(--p)", borderRadius: "50%", width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem" }}
                 >
                   ✕
                 </button>
               </div>
 
-              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "rgba(232,244,255,0.85)", lineHeight: 1.7, marginBottom: "2rem" }}>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "var(--text-body)", lineHeight: 1.7, marginBottom: "2rem" }}>
                 {activeService.desc}
               </p>
 
               <div className="hr-accent" style={{ opacity: 0.3, marginBottom: "1.5rem" }} />
 
-              <h4 style={{ fontFamily: "var(--font-display)", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#00D4FF", marginBottom: "1rem" }}>
+              <h4 style={{ fontFamily: "var(--font-display)", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--p)", marginBottom: "1rem" }}>
                 Capabilities
               </h4>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, padding: 0, margin: 0 }}>
                 {activeService.details.map(d => (
-                  <li key={d} style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", color: "rgba(232,244,255,0.7)", display: "flex", alignItems: "center", gap: 12 }}>
-                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#00D4FF", flexShrink: 0 }} />
+                  <li key={d} style={{ fontFamily: "var(--font-sans)", fontSize: "0.85rem", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 12 }}>
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--p)", flexShrink: 0 }} />
                     {d}
                   </li>
                 ))}
@@ -247,15 +247,15 @@ export default function ServicesPage() {
       </AnimatePresence>
 
       {/* CTA */}
-      <section style={{ padding: "0 0 9rem", background: "#050810" }}>
+      <section style={{ padding: "0 0 9rem", background: "var(--b)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 32 }}>
-          <TextReveal tag="h2" style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.9rem,3.5vw,2.9rem)", fontWeight: 500, color: "#E8F4FF" }}>
+          <TextReveal tag="h2" style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.9rem,3.5vw,2.9rem)", fontWeight: 500, color: "var(--text-strong)" }}>
             Ready to start something?
           </TextReveal>
           <FadeIn delay={0.2}>
-            <a href="/contact" style={{ fontFamily: "var(--font-sans)", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", padding: "14px 36px", background: "#00D4FF", color: "#E8F4FF", textDecoration: "none", transition: "all 0.35s" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#E8F4FF"; e.currentTarget.style.color = "#050810"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "#00D4FF"; e.currentTarget.style.color = "#E8F4FF"; }}>
+            <a href="/contact" style={{ fontFamily: "var(--font-sans)", fontSize: "0.68rem", letterSpacing: "0.35em", textTransform: "uppercase", padding: "14px 36px", background: "var(--p)", color: "var(--b)", textDecoration: "none", transition: "all 0.35s", fontWeight: 600 }}
+              onMouseEnter={e => { e.currentTarget.style.background = "var(--text-strong)"; e.currentTarget.style.color = "var(--b)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "var(--p)"; e.currentTarget.style.color = "var(--b)"; }}>
               Talk to Us
             </a>
           </FadeIn>
