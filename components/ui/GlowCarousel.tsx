@@ -34,7 +34,7 @@ export default function GlowCarousel({ children, label = "item" }: { children: R
               <motion.div
                 animate={{ scale: i === active ? 1 : 0.95, opacity: i === active ? 1 : 0.5 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                style={{ boxShadow: i === active ? "0 0 32px rgba(0,212,255,0.15)" : "none", transition: "box-shadow 0.4s" }}
+                style={{ boxShadow: i === active ? "0 0 32px rgba(201,133,62,0.15)" : "none", transition: "box-shadow 0.4s" }}
               >
                 {item}
               </motion.div>
@@ -46,17 +46,17 @@ export default function GlowCarousel({ children, label = "item" }: { children: R
       {/* Controls */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 20, padding: "0 0.5rem" }}>
         <button onClick={prev} aria-label="Previous" disabled={active === 0}
-          style={{ width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(0,212,255,0.3)", background: "transparent", color: "#00D4FF", cursor: "pointer", opacity: active === 0 ? 0.3 : 1, transition: "all 0.3s", fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          style={{ width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(201,133,62,0.3)", background: "transparent", color: "var(--p)", cursor: "pointer", opacity: active === 0 ? 0.3 : 1, transition: "all 0.3s", fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
           ←
         </button>
         <div style={{ display: "flex", gap: 6 }}>
           {items.map((_, i) => (
             <button key={i} onClick={() => setActive(i)} aria-label={`${label} ${i + 1}`}
-              style={{ width: active === i ? 20 : 6, height: 6, borderRadius: 3, border: "none", padding: 0, cursor: "pointer", background: active === i ? "#00D4FF" : "rgba(0,212,255,0.2)", transition: "all 0.35s", boxShadow: active === i ? "0 0 8px rgba(0,212,255,0.5)" : "none" }} />
+              style={{ width: active === i ? 20 : 6, height: 6, borderRadius: 3, border: "none", padding: 0, cursor: "pointer", background: active === i ? "var(--p)" : "var(--border-primary-dim)", transition: "all 0.35s", boxShadow: active === i ? "0 0 8px rgba(201,133,62,0.5)" : "none" }} />
           ))}
         </div>
         <button onClick={next} aria-label="Next" disabled={active === items.length - 1}
-          style={{ width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(0,212,255,0.3)", background: "transparent", color: "#00D4FF", cursor: "pointer", opacity: active === items.length - 1 ? 0.3 : 1, transition: "all 0.3s", fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          style={{ width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(201,133,62,0.3)", background: "transparent", color: "var(--p)", cursor: "pointer", opacity: active === items.length - 1 ? 0.3 : 1, transition: "all 0.3s", fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
           →
         </button>
       </div>

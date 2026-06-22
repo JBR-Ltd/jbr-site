@@ -65,7 +65,7 @@ export default function AboutPage() {
   });
 
   return (
-    <div style={{ background: "#050810" }}>
+    <div style={{ background: "var(--b)" }}>
       {/* ── Hero ── */}
       <section 
         ref={heroRef} 
@@ -77,51 +77,51 @@ export default function AboutPage() {
           overflow: "hidden" 
         }}
       >
-        <motion.div style={{ y: heroY, position: "absolute", inset: 0, background: "linear-gradient(135deg, #0A0F1E 0%, #050810 60%)" }} />
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 30% 60%, rgba(0,212,255,0.3) 0%, transparent 70%)" }} />
+        <motion.div style={{ y: heroY, position: "absolute", inset: 0, background: "linear-gradient(135deg, var(--b) 0%, var(--su) 60%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 30% 60%, var(--color-glow) 0%, transparent 70%)" }} />
 
         <motion.div style={{ opacity: heroOpacity, position: "relative", maxWidth: 1280, margin: "0 auto", padding: "0 3rem 7rem", width: "100%" }}>
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#00D4FF", marginBottom: 28 }}>
+            style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "var(--p)", marginBottom: 28 }}>
             About JBR Limited
           </motion.p>
-          <TextReveal tag="h1" delay={0.5} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, color: "#E8F4FF" }}>
+          <TextReveal tag="h1" delay={0.5} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, color: "var(--text-strong)" }}>
             We build what
           </TextReveal>
-          <TextReveal tag="h1" delay={0.65} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, fontStyle: "italic", color: "#00D4FF" }}>
+          <TextReveal tag="h1" delay={0.65} style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(2.4rem,5.5vw,4.8rem)", fontWeight: 500, fontStyle: "italic", color: "var(--p)" }}>
             others only imagine.
           </TextReveal>
         </motion.div>
       </section>
 
       {/* ── Story ── */}
-      <section style={{ padding: "9rem 0", background: "#050810" }} className="section-pad">
+      <section style={{ padding: "9rem 0", background: "var(--b)" }} className="section-pad">
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "6rem", alignItems: "start" }} className="story-grid">
             <FadeIn>
-              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#00D4FF", marginBottom: 32 }}>Our Story</p>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "var(--p)", marginBottom: 32 }}>Our Story</p>
               <div className="hr-accent" />
             </FadeIn>
             <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-              <TextReveal tag="h2" style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.6rem,3vw,2.4rem)", fontWeight: 500, color: "#E8F4FF" }}>
+              <TextReveal tag="h2" style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.6rem,3vw,2.4rem)", fontWeight: 500, color: "var(--text-strong)" }}>
                 Founded on the belief that Africa deserves world-class technology.
               </TextReveal>
               
               <FadeIn delay={0.1}>
-                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "rgba(232,244,255,0.82)", lineHeight: 1.95 }}>
+                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "var(--text-body)", lineHeight: 1.95 }}>
                   JBR Limited was born out of a recurring frustration: the gap between the technology African markets deserve and what they typically receive. Too many solutions are built elsewhere and adapted here, poorly.
                 </p>
               </FadeIn>
 
               {/* Hidden cleanly on mobile viewports using CSS media class hooks */}
               <FadeIn delay={0.2} className="desktop-only-p">
-                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "rgba(232,244,255,0.82)", lineHeight: 1.95 }}>
+                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "var(--text-body)", lineHeight: 1.95 }}>
                   We started with a different premise. Build from here. Build for here. Build with the rigour of the best studios anywhere in the world, but with an intimate understanding of this market's nuances, rhythms, and opportunities.
                 </p>
               </FadeIn>
 
               <FadeIn delay={0.3}>
-                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "rgba(232,244,255,0.82)", lineHeight: 1.95 }}>
+                <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "var(--text-body)", lineHeight: 1.95 }}>
                   Our first product, a real estate platform, is the clearest expression of this philosophy. Property is the most fundamental asset class in any economy. Getting it right matters.
                 </p>
               </FadeIn>
@@ -141,14 +141,14 @@ export default function AboutPage() {
       </section>
 
       {/* ── Values (Sequential Horizontal Stacking Cards Track) ── */}
-      <div ref={valuesSectionRef} style={{ position: "relative", height: "400vh", background: "#0A0F1E" }}>
+      <div ref={valuesSectionRef} style={{ position: "relative", height: "400vh", background: "var(--su)" }}>
         <div style={{ position: "sticky", top: 0, height: "100vh", width: "100%", overflow: "hidden", display: "flex", alignItems: "center" }}>
           <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem", width: "100%", display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "4rem", alignItems: "center" }} className="values-layout">
             
             {/* Left Column: Fixed Content Frame */}
             <div style={{ zIndex: 100 }}>
-              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#00D4FF", marginBottom: 20 }}>Our Values</p>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.7rem,3vw,2.5rem)", fontWeight: 500, color: "#E8F4FF", margin: 0, lineHeight: 1.3 }}>
+              <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "var(--p)", marginBottom: 20 }}>Our Values</p>
+              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.7rem,3vw,2.5rem)", fontWeight: 500, color: "var(--text-strong)", margin: 0, lineHeight: 1.3 }}>
                 The principles we refuse to compromise.
               </h2>
             </div>
@@ -196,23 +196,23 @@ export default function AboutPage() {
                       scale,
                       left: leftMove,
                       zIndex: i + 1,
-                      background: "#0F162A",
-                      border: "1px solid rgba(0, 212, 255, 0.25)",
+                      background: "var(--mu)",
+                      border: "1px solid var(--border-primary-sm)",
                       borderRadius: "20px",
                       padding: "3rem 2.5rem",
-                      boxShadow: "-20px 20px 50px rgba(3,5,10,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+                      boxShadow: "-20px 20px 50px rgba(10,8,7,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "center"
                     }}
                   >
-                    <span style={{ fontFamily: 'var(--font-display)', fontSize: "2.5rem", fontWeight: 600, color: "rgba(0,212,255,0.15)", display: "block", marginBottom: 8 }}>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: "2.5rem", fontWeight: 600, color: "var(--border-primary-xs)", display: "block", marginBottom: 8 }}>
                       0{i + 1}
                     </span>
-                    <h3 style={{ fontFamily: 'var(--font-display)', fontSize: "1.75rem", fontWeight: 500, color: "#E8F4FF", marginBottom: 16 }}>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontSize: "1.75rem", fontWeight: 500, color: "var(--text-strong)", marginBottom: 16 }}>
                       {v.title}
                     </h3>
-                    <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "rgba(232,244,255,0.75)", lineHeight: 1.8, margin: 0 }}>
+                    <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", color: "var(--text-body)", lineHeight: 1.8, margin: 0 }}>
                       {v.desc}
                     </p>
                   </motion.div>
@@ -231,11 +231,11 @@ export default function AboutPage() {
       </div>
 
       {/* ── Team ── */}
-      <section style={{ padding: "9rem 0", background: "#050810" }} className="section-pad">
+      <section style={{ padding: "9rem 0", background: "var(--b)" }} className="section-pad">
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 3rem" }}>
           <FadeIn style={{ marginBottom: 72 }}>
-            <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "#00D4FF", marginBottom: 20 }}>The Team</p>
-            <TextReveal tag="h2" style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.7rem,3vw,2.5rem)", fontWeight: 500, color: "#E8F4FF" }}>
+            <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.65rem", letterSpacing: "0.38em", textTransform: "uppercase", color: "var(--p)", marginBottom: 20 }}>The Team</p>
+            <TextReveal tag="h2" style={{ fontFamily: 'var(--font-display)', fontSize: "clamp(1.7rem,3vw,2.5rem)", fontWeight: 500, color: "var(--text-strong)" }}>
               Small by choice. Excellent by necessity.
             </TextReveal>
           </FadeIn>

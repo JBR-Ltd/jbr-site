@@ -52,7 +52,7 @@ export default function Loader() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           style={{
             position: "fixed", inset: 0, zIndex: 99999,
-            background: "#050810",
+            background: "var(--b)",
             display: "flex", flexDirection: "column",
             alignItems: "center", justifyContent: "center",
             gap: 28,
@@ -66,7 +66,7 @@ export default function Loader() {
                 <motion.circle
                   key={i}
                   cx={n.x} cy={n.y} r={3}
-                  fill="#00D4FF"
+                  fill="var(--p)"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: [0, 1, 0.6],
@@ -89,7 +89,7 @@ export default function Loader() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                   style={{
-                    filter: "drop-shadow(0 0 24px rgba(0,212,255,0.35))",
+                    filter: "drop-shadow(0 0 24px var(--glow-primary-sm))",
                   }}
                 />
               )}
@@ -99,7 +99,7 @@ export default function Loader() {
                 <motion.line
                   key={`l-${i}`}
                   x1={n.x} y1={n.y} x2={NODES[i + 1].x} y2={NODES[i + 1].y}
-                  stroke="#00D4FF" strokeWidth="0.5" opacity="0.25"
+                  stroke="var(--p)" strokeWidth="0.5" opacity="0.25"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 0.25 }}
                   transition={{ duration: 0.4, delay: i * 0.035 + 0.1 }}
@@ -119,7 +119,7 @@ export default function Loader() {
                 fontSize: "0.8rem",
                 letterSpacing: "0.45em",
                 textTransform: "uppercase",
-                color: "#E8F4FF",
+                color: "var(--text-strong)",
                 fontWeight: 500,
               }}
             >
@@ -127,13 +127,13 @@ export default function Loader() {
             </motion.span>
 
             {/* Progress bar */}
-            <div style={{ width: 160, height: 1, background: "rgba(0,212,255,0.15)", overflow: "hidden", marginTop: 6 }}>
+            <div style={{ width: 160, height: 1, background: "var(--border-primary-dim)", overflow: "hidden", marginTop: 6 }}>
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                 style={{
-                  height: "100%", background: "#00D4FF",
+                  height: "100%", background: "var(--p)",
                   transformOrigin: "left",
                 }}
               />
@@ -149,7 +149,7 @@ export default function Loader() {
                 fontSize: "0.62rem",
                 letterSpacing: "0.3em",
                 textTransform: "uppercase",
-                color: "rgba(232,244,255,0.76)",
+                color: "var(--text-body)",
                 marginTop: 4,
               }}
             >
